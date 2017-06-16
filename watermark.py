@@ -6,7 +6,7 @@ OUTPUT_DIR = "watermarked_images"
 WATERMARK_FILE = "molex.png"
 # The watermark will take up 15% of the horizontal space
 LANDSCAPE_SCALE_FACTOR = 0.15
-PORTRAIT_SCALE_FACTOR = 0.08
+PORTRAIT_SCALE_FACTOR = 0.30
 EQUAL_SCALE_FACTOR = 0.25
 # Padding TODO: Make fluid
 PADX = 20
@@ -32,8 +32,8 @@ for image_path in image_paths:
         new_width = int(image_width * LANDSCAPE_SCALE_FACTOR)
         new_height = int(new_width / watermark_ratio)
     elif image_width < image_height:
-        new_height = int(image_height * PORTRAIT_SCALE_FACTOR)
-        new_width = int(new_height*watermark_ratio)
+        new_width = int(image_width * PORTRAIT_SCALE_FACTOR)
+        new_height = int(new_width / watermark_ratio)
     else:
         new_width = int(image_width * EQUAL_SCALE_FACTOR)
         new_height = int(new_width / watermark_ratio)

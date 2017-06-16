@@ -19,6 +19,7 @@ PADY = 5
 
 
 def clamp(val, _min, _max):
+    """Keep a value within a certain limit"""
     if val < _min:
         return _min
     elif val > _max:
@@ -42,32 +43,39 @@ for image_path in image_paths:
         continue
 
     image_width, image_height = image.size
-    # Copy watermark and resize to better fit image
+    # Determine the images postion and then the watermark's new size
+    # Image is in the landscape position
     if image_width > image_height:
+        # Scales the width of the watermark based on the width of the image
+        # while keeping within min/max values
         new_width = int(clamp(image_width * LANDSCAPE_SCALE_FACTOR,
                               watermark.size[0] * MIN_SCALE_FACTOR,
                               watermark.size[0] * MAX_SCALE_FACTOR))
+        # Determine height from new width and old height/width ratio
         new_height = int(new_width / watermark_ratio)
+    # Image is in the portrait position
     elif image_width < image_height:
         new_width = int(clamp(image_width * PORTRAIT_SCALE_FACTOR,
                               watermark.size[0] * MIN_SCALE_FACTOR,
                               watermark.size[0] * MAX_SCALE_FACTOR))
         new_height = int(new_width / watermark_ratio)
+    # Image is equal sided
     else:
         new_width = int(clamp(image_width * EQUAL_SCALE_FACTOR,
                               watermark.size[0] * MIN_SCALE_FACTOR,
                               watermark.size[0] * MAX_SCALE_FACTOR))
         new_height = int(new_width / watermark_ratio)
 
+    # Resize watermark
     watermark_copy = watermark.copy().resize((new_width, new_height))
     print("New size: {}x{}".format(watermark_copy.size[0],
                                    watermark_copy.size[1]))
 
-    # Calculate position for logo
+    # Calculate position for watermark
     logo_x = image_width - watermark_copy.size[0] - PADX
     logo_y = image_height - watermark_copy.size[1] - PADY
     print("Putting logo at: {}x{}".format(logo_x, logo_y))
-    # Paste the resized logo at the calculated position
+    # Paste the resized watermark at the calculated position and save
     output_path = os.path.join(OUTPUT_DIR, image_path)
     print("Applying watermark and saving to to: " + output_path)
     try:

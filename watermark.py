@@ -7,10 +7,22 @@ WATERMARK_FILE = "molex.png"
 # The watermark will take up 15% of the horizontal space
 LANDSCAPE_SCALE_FACTOR = 0.15
 PORTRAIT_SCALE_FACTOR = 0.30
-EQUAL_SCALE_FACTOR = 0.25
+EQUAL_SCALE_FACTOR = 0.20
+MIN_SCALE_FACTOR = 0.5
+MAX_SCALE_FACTOR = 3
 # Padding TODO: Make fluid
 PADX = 20
 PADY = 5
+
+
+def clamp(val, min, max):
+    if val < min:
+        return min
+    elif val > max:
+        return max
+    else:
+        return val
+
 
 os.makedirs(OUTPUT_DIR, exist_ok=True)
 
@@ -29,13 +41,19 @@ for image_path in image_paths:
     image_width, image_height = image.size
     # Copy watermark and resize to better fit image
     if image_width > image_height:
-        new_width = int(image_width * LANDSCAPE_SCALE_FACTOR)
+        new_width = int(clamp(image_width * LANDSCAPE_SCALE_FACTOR,
+                              watermark.size[0] * MIN_SCALE_FACTOR,
+                              watermark.size[0] * MAX_SCALE_FACTOR))
         new_height = int(new_width / watermark_ratio)
     elif image_width < image_height:
-        new_width = int(image_width * PORTRAIT_SCALE_FACTOR)
+        new_width = int(clamp(image_width * PORTRAIT_SCALE_FACTOR,
+                              watermark.size[0] * MIN_SCALE_FACTOR,
+                              watermark.size[0] * MAX_SCALE_FACTOR))
         new_height = int(new_width / watermark_ratio)
     else:
-        new_width = int(image_width * EQUAL_SCALE_FACTOR)
+        new_width = int(clamp(image_width * MAX_SCALE_FACTOR,
+                              watermark.size[0] * MIN_SCALE_FACTOR,
+                              watermark.size[0] * MAX_SCALE_FACTOR))
         new_height = int(new_width / watermark_ratio)
 
     watermark_copy = watermark.copy().resize((new_width, new_height))

@@ -3,7 +3,7 @@ import os
 
 INPUT_DIR = "images"
 OUTPUT_DIR = "watermarked_images"
-WATERMARK_FILE = "molex.png"
+WATERMARK_FILE = "sunlux.png"
 # The watermark will take up 15% of the horizontal space
 LANDSCAPE_SCALE_FACTOR = 0.15
 PORTRAIT_SCALE_FACTOR = 0.30
@@ -51,7 +51,7 @@ for image_path in image_paths:
                               watermark.size[0] * MAX_SCALE_FACTOR))
         new_height = int(new_width / watermark_ratio)
     else:
-        new_width = int(clamp(image_width * MAX_SCALE_FACTOR,
+        new_width = int(clamp(image_width * EQUAL_SCALE_FACTOR,
                               watermark.size[0] * MIN_SCALE_FACTOR,
                               watermark.size[0] * MAX_SCALE_FACTOR))
         new_height = int(new_width / watermark_ratio)

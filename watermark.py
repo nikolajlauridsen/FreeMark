@@ -3,11 +3,14 @@ import os
 
 INPUT_DIR = "images"
 OUTPUT_DIR = "watermarked_images"
-WATERMARK_FILE = "sunlux.png"
-# The watermark will take up 15% of the horizontal space
+WATERMARK_FILE = "molex.png"
+# The watermark will take up 15% of the horizontal space on landscape images
 LANDSCAPE_SCALE_FACTOR = 0.15
+# 30% on portrait images
 PORTRAIT_SCALE_FACTOR = 0.30
+# 20% on images of equal size
 EQUAL_SCALE_FACTOR = 0.20
+# Min and max values the watermark is allowed to be scaled
 MIN_SCALE_FACTOR = 0.5
 MAX_SCALE_FACTOR = 3
 # Padding TODO: Make fluid
@@ -15,11 +18,11 @@ PADX = 20
 PADY = 5
 
 
-def clamp(val, min, max):
-    if val < min:
-        return min
-    elif val > max:
-        return max
+def clamp(val, _min, _max):
+    if val < _min:
+        return _min
+    elif val > _max:
+        return _max
     else:
         return val
 

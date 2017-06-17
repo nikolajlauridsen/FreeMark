@@ -38,7 +38,9 @@ class FileSelector(Frame):
     def refresh_files(self):
         """Update files list"""
         try:
-            self.files = os.listdir(self.base_dir.get())
+            self.files = [file for file in os.listdir(self.base_dir.get())
+                          if os.path.isfile(os.path.join(self.base_dir.get(),
+                                                         file))]
         except FileNotFoundError:
             self.error.set('Directory not found')
             return

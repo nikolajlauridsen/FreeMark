@@ -1,5 +1,5 @@
 from tkinter import *
-from .UI.file_selector import FileSelector
+from watermark.UI.file_selector import FileSelector
 
 
 class WaterMark(Frame):

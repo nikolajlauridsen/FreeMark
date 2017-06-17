@@ -10,26 +10,39 @@ class FileSelector(Frame):
 
         self.base_dir = StringVar()
         self.error = StringVar()
+        self.error.set("Choose folder")
         self.files = []
 
-        self.files_view = Listbox(self, width=75, height=15)
-        self.folder_entry = Entry(self, width=60,
+        self.button_frame = Frame(self)
+        self.folder_frame = Frame(self)
+
+        self.files_view = Listbox(self, width=65, height=20)
+        self.folder_entry = Entry(self.folder_frame, width=60,
                                   textvariable=self.base_dir)
-        self.warning_label = Label(self, textvariable=self.error)
+        self.warning_label = Label(self.button_frame, textvariable=self.error)
+
         self.create_widgets()
 
     def create_widgets(self):
         pad_y = 5
         pad_x = 10
+        # List for files
         self.files_view.pack(pady=pad_y)
 
-        self.folder_entry.pack(pady=pad_y)
-        Button(self, text="Choose Folder",
-               command=self.fill_list).pack(pady=pad_y, side=LEFT,
-                                            padx=pad_x)
-        Button(self, text="Load files",
-               command=self.refresh_files).pack(pady=pad_y, side=LEFT)
-        self.warning_label.pack(padx=pad_x, side=LEFT)
+        # Folder entry field
+        Label(self.folder_frame, text="Folder:").pack(side=LEFT)
+        self.folder_entry.pack(side=RIGHT)
+
+        # Button panel and error message
+        Button(self.button_frame, text="Choose Folder",
+               command=self.fill_list).pack(side=LEFT, padx=pad_x)
+        Button(self.button_frame, text="Load files",
+               command=self.refresh_files).pack(side=LEFT)
+        self.warning_label.pack(padx=pad_x*2, side=RIGHT)
+
+        # Pack frames
+        self.folder_frame.pack()
+        self.button_frame.pack(pady=pad_y)
 
     def prompt_directory(self):
         """Prompt the user for a base dir"""
@@ -48,6 +61,7 @@ class FileSelector(Frame):
         self.files_view.delete(0, END)
         for file in self.files:
             self.files_view.insert(END, file)
+        self.error.set("Waiting")
 
     def fill_list(self):
         """Fill the list, by first asking the user to choose a directory

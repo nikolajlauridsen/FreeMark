@@ -3,3 +3,5 @@
 .idea/*
 *.psd
 *.zip
+*.gif
+*.pyc

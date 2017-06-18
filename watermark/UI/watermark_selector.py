@@ -13,7 +13,7 @@ class WatermarkSelector(Frame):
         self.create_widgets()
 
     def create_widgets(self):
-        Label(self, text="Watermark source").pack()
+        Label(self, text="Watermark source", font=14).pack(anchor=W)
         Entry(self, width=50,
               textvariable=self.watermark_path).pack(side=LEFT)
         Button(self, text="Choose watermark",

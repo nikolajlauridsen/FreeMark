@@ -14,8 +14,8 @@ class OptionsPane(Frame):
         self.create_widgets()
 
     def create_widgets(self):
-        self.watermark_selector.pack()
-        self.output_selector.pack()
+        self.watermark_selector.pack(fill=X, pady=5)
+        self.output_selector.pack(fill=X, pady=5)
 
     def get_watermark_path(self):
         return self.watermark_selector.get_path()

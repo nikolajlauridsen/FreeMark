@@ -26,7 +26,7 @@ class FileSelector(Frame):
     def create_widgets(self):
         pad_y = 5
         pad_x = 10
-        Label(self, text="Images").pack()
+        Label(self, text="Images", font=14).pack()
         # List for files
         self.files_view.pack(pady=pad_y, padx=pad_x)
 

@@ -1,6 +1,5 @@
 from tkinter import *
 from tkinter.ttk import Progressbar
-import os
 import threading
 import queue
 
@@ -8,16 +7,15 @@ from watermark.tools.watermarker import WaterMarker
 
 
 class Worker(Frame):
-    def __init__(self, file_selector, watermark_selector, master=None):
+    def __init__(self, file_selector, options_pane, master=None):
         super().__init__(master)
 
         self.threads = 5
-        self.output_path = None
 
         self.image_que = queue.Queue()
 
         self.file_selector = file_selector
-        self.watermark_selector = watermark_selector
+        self.option_pane = options_pane
         self.watermarker = WaterMarker()
 
         self.progress_bar = Progressbar(orient="horizontal",
@@ -37,9 +35,8 @@ class Worker(Frame):
             self.image_que.put(file)
 
     def apply_watermarks(self):
-        self.output_path = r"D:\Github\Watermark\watermarked_images"
         self.fill_que()
-        self.watermarker.preb(self.watermark_selector.get_path())
+        self.watermarker.preb(self.option_pane.get_watermark_path())
         self.start_work()
 
     def start_work(self):
@@ -55,8 +52,7 @@ class Worker(Frame):
                 return
             try:
                 self.watermarker.apply_watermark(input_path,
-                                                os.path.join(self.output_path,
-                                                             os.path.split(input_path)[-1]))
+                                                 self.option_pane.create_output_path(input_path))
             except Exception as e:
                 print("Error!\n", e)
             self.progress_bar.step()

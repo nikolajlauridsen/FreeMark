@@ -26,8 +26,9 @@ class FileSelector(Frame):
     def create_widgets(self):
         pad_y = 5
         pad_x = 10
+        Label(self, text="Images").pack()
         # List for files
-        self.files_view.pack(pady=pad_y)
+        self.files_view.pack(pady=pad_y, padx=pad_x)
 
         # Folder entry field
         Label(self.folder_frame, text="Folder:").pack(side=LEFT)

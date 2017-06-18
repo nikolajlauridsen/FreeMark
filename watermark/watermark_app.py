@@ -1,5 +1,6 @@
 from tkinter import *
 from watermark.UI.file_selector import FileSelector
+from watermark.UI.watermark_selector import WatermarkSelector
 
 
 class WaterMarkApp(Frame):
@@ -15,4 +16,7 @@ class WaterMarkApp(Frame):
 
         # Create listbox for files
         file_selector = FileSelector(self.master)
-        file_selector.pack()
+        file_selector.pack(side=LEFT)
+
+        watermark_selector = WatermarkSelector(self.master)
+        watermark_selector.pack(side=RIGHT)

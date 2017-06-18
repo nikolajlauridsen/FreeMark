@@ -18,7 +18,7 @@ class Worker(Frame):
 
         self.file_selector = file_selector
         self.watermark_selector = watermark_selector
-        self.watermarker = WaterMarker(self.watermark_selector.get_path())
+        self.watermarker = WaterMarker()
 
         self.create_widgets()
 
@@ -32,7 +32,7 @@ class Worker(Frame):
     def apply_watermarks(self):
         self.output_path = r"D:\Github\Watermark\watermarked_images"
         self.fill_que()
-        self.watermarker.update_watermark(self.watermark_selector.get_path())
+        self.watermarker.preb(self.watermark_selector.get_path())
         self.start_work()
 
     def start_work(self):

@@ -1,4 +1,5 @@
 from tkinter import *
+from tkinter.ttk import Progressbar
 import os
 import threading
 import queue
@@ -11,7 +12,6 @@ class Worker(Frame):
         super().__init__(master)
 
         self.threads = 5
-
         self.output_path = None
 
         self.image_que = queue.Queue()
@@ -20,13 +20,20 @@ class Worker(Frame):
         self.watermark_selector = watermark_selector
         self.watermarker = WaterMarker()
 
+        self.progress_bar = Progressbar(orient="horizontal",
+                                        mode="determinate",
+                                        length=500)
+
         self.create_widgets()
 
     def create_widgets(self):
-        Button(self, text="Start", command=self.apply_watermarks).pack()
+        self.progress_bar.pack()
+        Button(self, text="Start", command=self.apply_watermarks).pack(pady=5)
 
     def fill_que(self):
-        for file in self.file_selector.get_file_paths():
+        files = self.file_selector.get_file_paths()
+        self.progress_bar.configure(maximum=len(files))
+        for file in files:
             self.image_que.put(file)
 
     def apply_watermarks(self):
@@ -46,7 +53,11 @@ class Worker(Frame):
                 input_path = self.image_que.get(block=False)
             except queue.Empty:
                 return
-            self.watermarker.apply_watermark(input_path,
-                                             os.path.join(self.output_path,
-                                                          os.path.split(input_path)[-1]))
+            try:
+                self.watermarker.apply_watermark(input_path,
+                                                os.path.join(self.output_path,
+                                                             os.path.split(input_path)[-1]))
+            except Exception as e:
+                print("Error!\n", e)
+            self.progress_bar.step()
 

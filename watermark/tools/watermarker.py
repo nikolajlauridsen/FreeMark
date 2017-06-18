@@ -34,10 +34,7 @@ class WaterMarker:
 
         scaled_watermark = self.scale_watermark(image)
         position = self.get_watermark_position(image, scaled_watermark)
-        print("Image size: {}x{}".format(image.size[0], image.size[1]))
-        print("Watermark size: {}x{}".format(scaled_watermark.size[0],
-                                             scaled_watermark.size[1]))
-        print(position)
+
         image.paste(scaled_watermark, box=position, mask=scaled_watermark)
         image.save(output_path)
 

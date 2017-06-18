@@ -1,5 +1,4 @@
 from tkinter import *
-import os
 
 from watermark.UI.ouput_selector import OutputSelector
 from watermark.UI.watermark_selector import WatermarkSelector
@@ -24,6 +23,5 @@ class OptionsPane(Frame):
         return self.output_selector.get_dir()
 
     def create_output_path(self, input_path):
-        filename = os.path.split(input_path)[-1]
-        return os.path.join(self.output_selector.get_dir(), filename)
+        return self.output_selector.get_output_path(input_path)
 

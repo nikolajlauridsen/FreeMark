@@ -1,5 +1,6 @@
 from tkinter import *
 from tkinter import filedialog
+import os
 
 NONE = 0
 PRE = 1
@@ -48,3 +49,19 @@ class OutputSelector(Frame):
 
     def get_dir(self):
         return self.output_dir.get()
+
+    def rename_file(self, filename, abs_path=False):
+        if abs_path:
+            filename = os.path.split(filename)[-1]
+
+        if self.fix_position.get() == NONE:
+            return filename
+        elif self.fix_position.get() == PRE:
+            return "{}_{}".format(self.fix.get(), filename)
+        elif self.fix_position.get() == SUFFIX:
+            filename = filename.rsplit('.', maxsplit=1)
+            return "{}_{}.{}".format(filename[0], self.fix.get(), filename[1])
+
+    def get_output_path(self, input_path):
+        filename = self.rename_file(input_path, abs_path=True)
+        return os.path.join(self.output_dir.get(), filename)

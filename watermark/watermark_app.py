@@ -1,6 +1,7 @@
 from tkinter import *
 from watermark.UI.file_selector import FileSelector
 from watermark.UI.watermark_selector import WatermarkSelector
+from watermark.UI.worker import Worker
 
 
 class WaterMarkApp(Frame):
@@ -20,3 +21,6 @@ class WaterMarkApp(Frame):
 
         watermark_selector = WatermarkSelector(self.master)
         watermark_selector.pack(side=RIGHT)
+
+        worker = Worker(file_selector, watermark_selector)
+        worker.pack(side=BOTTOM)

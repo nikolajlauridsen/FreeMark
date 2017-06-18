@@ -73,3 +73,7 @@ class FileSelector(Frame):
     def get_files(self):
         """Might as well go full java now that we're at it"""
         return self.files
+
+    def get_file_paths(self):
+        return [os.path.join(self.base_dir.get(), file) for file
+                in self.get_files()]

@@ -17,7 +17,7 @@ class WatermarkSelector(Frame):
         Entry(self, width=50,
               textvariable=self.watermark_path).pack(side=LEFT)
         Button(self, text="Choose watermark",
-               command=self.set_path).pack(side=LEFT)
+               command=self.set_path).pack(side=LEFT, padx=10)
 
     def set_path(self):
         self.watermark_path.set(filedialog.askopenfilename())

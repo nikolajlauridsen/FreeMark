@@ -8,7 +8,7 @@ python_path = r"C:\Users\EUC\AppData\Local\Programs\Python\Python35"
 os.environ['TCL_LIBRARY'] = os.path.join(python_path, "tcl", "tcl8.6")
 os.environ['TK_LIBRARY'] = os.path.join(python_path, "tcl", "tk8.6")
 
-package_list = ["watermark", "tkinter", "os"]
+package_list = ["watermark", "tkinter", "os", "PIL", "threading", "queue"]
 
 # Required files in include folder:
 # tk86t.dll

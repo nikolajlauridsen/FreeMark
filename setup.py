@@ -26,5 +26,5 @@ setup(name="Watermark",
       version="0.0.1",
       description="Watermark images, easily",
       options={"build_exe": build_exe_options},
-      executables=[Executable("launcher.py",
+      executables=[Executable("watermark.py",
                               base=base)])

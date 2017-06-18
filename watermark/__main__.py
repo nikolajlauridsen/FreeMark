@@ -3,6 +3,7 @@ from watermark.watermark_app import WaterMarkApp
 
 
 def main():
+    """Main method, starts TK and loads Watermark"""
     root = Tk()
     root.title('Watermark')
 

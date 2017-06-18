@@ -4,6 +4,7 @@ from watermark.tools.help import clamp
 
 
 class WaterMarker:
+    """Object for applying a watermark to images"""
     def __init__(self):
         self.watermark_path = None
         self.watermark_ratio = None
@@ -18,18 +19,30 @@ class WaterMarker:
         self.padx = 20
         self.pady = 5
 
-    def preb(self, watermark_path):
+    def prep(self, watermark_path):
+        """
+        Prepare the watermarker, by giving in a path to a watermark image
+        (.png)
+        :param watermark_path: path to watermark image as a string
+        """
         self.watermark_path = watermark_path
         self.watermark = Image.open(self.watermark_path)
         self.watermark_ratio = self.watermark.size[0] / self.watermark.size[1]
 
     def clean(self):
+        """
+        Forget the currently loaded watermark
+        """
         self.watermark_path = None
         self.watermark_ratio = None
         self.watermark = None
 
     def apply_watermark(self, input_path, output_path):
-
+        """
+        Apply a watermark to an image
+        :param input_path: path to image on disk as a string
+        :param output_path: save destination (path) as a string
+        """
         image = Image.open(input_path)
 
         scaled_watermark = self.scale_watermark(image)
@@ -39,6 +52,12 @@ class WaterMarker:
         image.save(output_path)
 
     def scale_watermark(self, image):
+        """
+        Get a scaled copy of the currently loaded watermark, 
+        tries to scale it to from input image's size and orientation
+        :param image: PIL image object that watermark will be applied to
+        :return: scaled copy of currently loaded watermark as PIL image object
+        """
         image_width, image_height = image.size
 
         # Calculate new watermark size
@@ -67,6 +86,12 @@ class WaterMarker:
         return self.watermark.copy().resize((new_width, new_height))
 
     def get_watermark_position(self, image, watermark):
+        """
+        Calculate position to place the watermark
+        :param image: image object of image
+        :param watermark: image object of watermark
+        :return: (x, y) coordinates to place the upper left coordinates 
+        """
         x = image.size[0] - watermark.size[0] - self.padx
         y = image.size[1] - watermark.size[1] - self.pady
         return x, y

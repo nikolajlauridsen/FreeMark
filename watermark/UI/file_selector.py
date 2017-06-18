@@ -4,6 +4,9 @@ import os
 
 
 class FileSelector(Frame):
+    """
+    GUI element for selecting images to apply watermark to
+    """
     def __init__(self, master=None):
         Frame.__init__(self, master)
         self.master = master
@@ -24,6 +27,7 @@ class FileSelector(Frame):
         self.create_widgets()
 
     def create_widgets(self):
+        """Create GUI elements"""
         pad_y = 5
         pad_x = 10
         Label(self, text="Images", font=14).pack()
@@ -75,5 +79,6 @@ class FileSelector(Frame):
         return self.files
 
     def get_file_paths(self):
+        """Return path to files"""
         return [os.path.join(self.base_dir.get(), file) for file
                 in self.get_files()]

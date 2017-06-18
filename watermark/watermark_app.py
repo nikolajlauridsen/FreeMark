@@ -5,6 +5,11 @@ from watermark.UI.worker import Worker
 
 
 class WaterMarkApp(Frame):
+    """
+    Top most frame of the application, represents the 'app'
+    brings together all the other major pieces, which in turn brings together 
+    the smaller pieces
+    """
     def __init__(self, master=None):
         Frame.__init__(self, master)
         self.master = master
@@ -12,6 +17,7 @@ class WaterMarkApp(Frame):
         self.create_widgets()
 
     def create_widgets(self):
+        """Create the GUI elements"""
         pad_y = 5
         Label(self.master, text='Image Watermarker', font=16).pack(pady=pad_y)
 

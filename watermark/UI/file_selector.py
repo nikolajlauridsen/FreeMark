@@ -17,7 +17,7 @@ class FileSelector(Frame):
         self.folder_frame = Frame(self)
 
         self.files_view = Listbox(self, width=65, height=20)
-        self.folder_entry = Entry(self.folder_frame, width=60,
+        self.folder_entry = Entry(self.folder_frame, width=50,
                                   textvariable=self.base_dir)
         self.warning_label = Label(self.button_frame, textvariable=self.error)
 

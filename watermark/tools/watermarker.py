@@ -37,16 +37,17 @@ class WaterMarker:
         self.watermark_ratio = None
         self.watermark = None
 
-    def apply_watermark(self, input_path, output_path):
+    def apply_watermark(self, input_path, output_path, pos="SE"):
         """
         Apply a watermark to an image
         :param input_path: path to image on disk as a string
         :param output_path: save destination (path) as a string
+        :param pos: Assumes first char is y (N/S) and second is x (E/W)
         """
         image = Image.open(input_path)
 
         scaled_watermark = self.scale_watermark(image)
-        position = self.get_watermark_position(image, scaled_watermark)
+        position = self.get_watermark_position(image, scaled_watermark, pos=pos)
 
         image.paste(scaled_watermark, box=position, mask=scaled_watermark)
         image.save(output_path)
@@ -85,13 +86,21 @@ class WaterMarker:
         # Apply it
         return self.watermark.copy().resize((new_width, new_height))
 
-    def get_watermark_position(self, image, watermark):
+    def get_watermark_position(self, image, watermark, pos="SE"):
         """
         Calculate position to place the watermark
         :param image: image object of image
         :param watermark: image object of watermark
-        :return: (x, y) coordinates to place the upper left coordinates 
+        :param pos: Assumes first char is y (N/S) and second is x (E/W)
+        :return: (x, y) coordinates to place the upper left coordinates
         """
-        x = image.size[0] - watermark.size[0] - self.padx
-        y = image.size[1] - watermark.size[1] - self.pady
+        pos = pos.upper().strip()
+        if pos[0] == "S":
+            y = image.size[1] - watermark.size[1] - self.pady
+        else:
+            y = self.pady
+        if pos[1] == "E":
+            x = image.size[0] - watermark.size[0] - self.padx
+        else:
+            x = self.pady
         return x, y

@@ -76,7 +76,8 @@ class Worker(Frame):
                 return
             try:
                 self.watermarker.apply_watermark(input_path,
-                                                 self.option_pane.create_output_path(input_path))
+                                                 self.option_pane.create_output_path(input_path),
+                                                 pos=self.option_pane.get_watermark_pos())
             except Exception as e:
                 print("Error!\n", e)
             self.progress_bar.step()

@@ -2,6 +2,7 @@ from tkinter import *
 
 from watermark.UI.ouput_selector import OutputSelector
 from watermark.UI.watermark_selector import WatermarkSelector
+from watermark.UI.watermark_options import WatermarkOptions
 
 
 class OptionsPane(Frame):
@@ -14,12 +15,15 @@ class OptionsPane(Frame):
 
         self.output_selector = OutputSelector(self)
         self.watermark_selector = WatermarkSelector(self)
+        self.watermark_options = WatermarkOptions(self)
         self.create_widgets()
 
     def create_widgets(self):
         """Create the graphical element"""
-        self.watermark_selector.pack(fill=X, pady=5)
-        self.output_selector.pack(fill=X, pady=5)
+        pady = 5
+        self.watermark_selector.pack(fill=X, pady=pady)
+        self.watermark_options.pack(fill=X, pady=pady)
+        self.output_selector.pack(fill=X, pady=pady)
 
     def get_watermark_path(self):
         """
@@ -33,4 +37,7 @@ class OptionsPane(Frame):
 
     def create_output_path(self, input_path):
         return self.output_selector.get_output_path(input_path)
+
+    def get_watermark_pos(self):
+        return self.watermark_options.position.get()
 

@@ -35,20 +35,19 @@ class WaterMarker:
         self.watermark = None
 
     def apply_watermark(self, input_path, output_path, pos="SE",
-                        padding=(20, 5)):
+                        padding=((20, "px"), (5, "px"))):
         """
         Apply a watermark to an image
         :param input_path: path to image on disk as a string
         :param output_path: save destination (path) as a string
         :param pos: Assumes first char is y (N/S) and second is x (E/W)
-        :param padding: (x, y) padding as a tuple
+        :param padding: padding in format ((x_pad, unit), (y_pad, unit))
         """
         image = Image.open(input_path)
 
         scaled_watermark = self.scale_watermark(image)
         position = self.get_watermark_position(image, scaled_watermark,
-                                               pos=pos, padx=padding[0],
-                                               pady=padding[1])
+                                               pos=pos, padding=padding)
 
         image.paste(scaled_watermark, box=position, mask=scaled_watermark)
         image.save(output_path)
@@ -88,16 +87,27 @@ class WaterMarker:
         return self.watermark.copy().resize((new_width, new_height))
 
     @staticmethod
-    def get_watermark_position(image, watermark, pos="SE", padx=20, pady=5):
+    def get_watermark_position(image, watermark, pos="SE",
+                               padding=((20, "px"), (5, "px"))):
         """
         Calculate position to place the watermark
         :param image: image object of image
         :param watermark: image object of watermark
         :param pos: Assumes first char is y (N/S) and second is x (E/W)
-        :param padx: Horizontal padding
-        :param pady: Vertical padding
+        :param padding: padding in format ((x_pad, unit), (y_pad, unit))
         :return: (x, y) coordinates to place the upper left coordinates
         """
+        # Get padding size
+        if padding[0][1] == "%":
+            padx = int(image.size[0] * (padding[0][0] / 100))
+        else:
+            padx = padding[0][0]
+
+        if padding[1][1] == "%":
+            pady = int(image.size[1] * (padding[1][0] / 100))
+        else:
+            pady = padding[1][0]
+
         pos = pos.upper().strip()
         if pos[0] == "S":
             y = image.size[1] - watermark.size[1] - pady

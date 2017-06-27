@@ -21,9 +21,10 @@ class OptionsPane(Frame):
     def create_widgets(self):
         """Create the graphical element"""
         pady = 5
-        self.watermark_selector.pack(fill=X, pady=pady)
-        self.watermark_options.pack(fill=X, pady=pady)
-        self.output_selector.pack(fill=X, pady=pady)
+        Label(self, text="Settings", font=14).pack()
+        self.watermark_selector.pack(fill=X, pady=pady, anchor=N)
+        self.watermark_options.pack(fill=X, pady=pady, anchor=N)
+        self.output_selector.pack(fill=X, pady=pady, anchor=N)
 
     def get_watermark_path(self):
         """

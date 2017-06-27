@@ -9,14 +9,10 @@ class WatermarkOptions(Frame):
         self.position = StringVar()
         self.position.set("SE")
 
-        self.padding_frame = Frame(self)
-        validate = (self.register(self.validate_int), '%P')
-        self.padx = Spinbox(self.padding_frame, validate="key",
-                            validatecommand=validate)
-        self.pady = Spinbox(self.padding_frame, validate="key",
-                            validatecommand=validate)
-        self.padx.insert(0, 20)
-        self.pady.insert(0, 5)
+        self.padx = StringVar()
+        self.pady = StringVar()
+        self.padx.set(20)
+        self.pady.set(5)
 
         self.create_widgets()
 
@@ -25,12 +21,18 @@ class WatermarkOptions(Frame):
 
         Label(self, text="Position").pack(anchor=W)
 
-        Label(self.padding_frame, text="Pad x").grid(column=0, row=0)
-        self.padx.grid(column=1, row=0)
+        validate = (self.register(self.validate_int), '%P')
 
-        Label(self.padding_frame, text="Pad y").grid(column=0, row=1)
-        self.pady.grid(column=1, row=1)
-        self.padding_frame.pack(side=LEFT)
+        padding_frame = Frame(self)
+        Label(padding_frame, text="Pad x").grid(column=0, row=0)
+        Entry(padding_frame, textvariable=self.padx, validate="key",
+              validatecommand=validate).grid(column=1, row=0)
+
+        Label(padding_frame, text="Pad y").grid(column=0, row=1)
+        Entry(padding_frame, textvariable=self.pady, validate="key",
+              validatecommand=validate).grid(column=1, row=1)
+
+        padding_frame.pack(side=LEFT)
 
         pos_frame = Frame(self)
         radio_pad = 5

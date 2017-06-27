@@ -48,8 +48,10 @@ class Worker(Frame):
             self.image_que.put(file)
 
     def apply_watermarks(self):
-        """Fill the que, then prepare the watermarker 
-        before spawning workers"""
+        """
+        Fill the que, then prepare the watermarker
+        before spawning workers
+        """
         self.fill_que()
         self.watermarker.prep(self.option_pane.get_watermark_path())
         self.start_work()
@@ -77,7 +79,8 @@ class Worker(Frame):
             try:
                 self.watermarker.apply_watermark(input_path,
                                                  self.option_pane.create_output_path(input_path),
-                                                 pos=self.option_pane.get_watermark_pos())
+                                                 pos=self.option_pane.get_watermark_pos(),
+                                                 padding=self.option_pane.get_padding())
             except Exception as e:
                 print("Error!\n", e)
             self.progress_bar.step()

@@ -41,3 +41,6 @@ class OptionsPane(Frame):
     def get_watermark_pos(self):
         return self.watermark_options.position.get()
 
+    def get_padding(self):
+        return int(self.watermark_options.padx.get()), int(self.watermark_options.pady.get())
+

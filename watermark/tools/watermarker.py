@@ -16,9 +16,6 @@ class WaterMarker:
         self.min_scale = 0.5
         self.max_scale = 3
 
-        self.padx = 20
-        self.pady = 5
-
     def prep(self, watermark_path):
         """
         Prepare the watermarker, by giving in a path to a watermark image
@@ -37,17 +34,21 @@ class WaterMarker:
         self.watermark_ratio = None
         self.watermark = None
 
-    def apply_watermark(self, input_path, output_path, pos="SE"):
+    def apply_watermark(self, input_path, output_path, pos="SE",
+                        padding=(20, 5)):
         """
         Apply a watermark to an image
         :param input_path: path to image on disk as a string
         :param output_path: save destination (path) as a string
         :param pos: Assumes first char is y (N/S) and second is x (E/W)
+        :param padding: (x, y) padding as a tuple
         """
         image = Image.open(input_path)
 
         scaled_watermark = self.scale_watermark(image)
-        position = self.get_watermark_position(image, scaled_watermark, pos=pos)
+        position = self.get_watermark_position(image, scaled_watermark,
+                                               pos=pos, padx=padding[0],
+                                               pady=padding[1])
 
         image.paste(scaled_watermark, box=position, mask=scaled_watermark)
         image.save(output_path)
@@ -86,21 +87,24 @@ class WaterMarker:
         # Apply it
         return self.watermark.copy().resize((new_width, new_height))
 
-    def get_watermark_position(self, image, watermark, pos="SE"):
+    @staticmethod
+    def get_watermark_position(image, watermark, pos="SE", padx=20, pady=5):
         """
         Calculate position to place the watermark
         :param image: image object of image
         :param watermark: image object of watermark
         :param pos: Assumes first char is y (N/S) and second is x (E/W)
+        :param padx: Horizontal padding
+        :param pady: Vertical padding
         :return: (x, y) coordinates to place the upper left coordinates
         """
         pos = pos.upper().strip()
         if pos[0] == "S":
-            y = image.size[1] - watermark.size[1] - self.pady
+            y = image.size[1] - watermark.size[1] - pady
         else:
-            y = self.pady
+            y = pady
         if pos[1] == "E":
-            x = image.size[0] - watermark.size[0] - self.padx
+            x = image.size[0] - watermark.size[0] - padx
         else:
-            x = self.pady
+            x = pady
         return x, y

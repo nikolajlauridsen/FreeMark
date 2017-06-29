@@ -14,7 +14,7 @@ class Worker(Frame):
     def __init__(self, file_selector, options_pane, master=None):
         super().__init__(master)
 
-        self.threads = 5
+        self.threads = 1
 
         self.image_que = queue.Queue()
 
@@ -80,7 +80,7 @@ class Worker(Frame):
                 kwargs = {"pos": self.option_pane.get_watermark_pos(),
                           "padding": self.option_pane.get_padding(),
                           "scale": self.option_pane.should_scale(),
-                          "opacity": 1}
+                          "opacity": self.option_pane.get_opacity()}
                 self.watermarker.apply_watermark(input_path,
                                                  self.option_pane.create_output_path(input_path),
                                                  **kwargs)

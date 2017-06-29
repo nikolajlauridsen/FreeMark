@@ -25,6 +25,9 @@ class WatermarkOptions(Frame):
         self.scale_watermark = BooleanVar()
         self.scale_watermark.set(True)
 
+        self.opacity = IntVar()
+        self.opacity.set(100)
+
         self.create_widgets()
 
     def create_widgets(self):
@@ -78,15 +81,24 @@ class WatermarkOptions(Frame):
 
         pos_options.pack(anchor=W)
 
+        # ---------- Opacity options ---------
+        Label(self, text="Opacity and size").pack(anchor=W)
+        opacity_frame = Frame(self)
+        Label(opacity_frame, text="Opacity ").pack(side=LEFT, anchor=S)
+        Scale(opacity_frame, from_=0, to=100, orient=HORIZONTAL,
+              variable=self.opacity).pack(side=LEFT, anchor=N, padx=5)
+
+        Entry(opacity_frame, textvariable=self.opacity, width=4,
+              validate="key", validatecommand=validate).pack(side=LEFT,
+                                                             anchor=S, pady=3)
+
+        Label(opacity_frame, text="%").pack(side=LEFT, anchor=S, pady=3)
+        opacity_frame.pack(anchor=W)
+
         # ----------- Size options -----------
-        size_options = Frame(self)
-        Label(size_options, text="Size").pack(anchor=W)
-
-        Checkbutton(size_options, text="Auto resize watermark",
+        Checkbutton(self, text="Auto resize watermark",
                     variable=self.scale_watermark,
-                    onvalue=True, offvalue=False).pack()
-
-        size_options.pack(anchor=W)
+                    onvalue=True, offvalue=False).pack(anchor=W, pady=pady)
 
     @staticmethod
     def validate_int(number):

@@ -128,7 +128,7 @@ class WaterMarker:
         :return: (x, y) coordinates to place the upper left coordinates
         """
         # Change pos and make sure the right values were provided
-        assert padding[1] in ["px", "%"], "unit must be px or %"
+        assert padding[0][1] and padding[1][1] in ["px", "%"], "unit must be px or %"
         pos = pos.upper().strip()
         assert pos[0] in ['N', 'S'], "first char of pos must be N or S"
         assert pos[1] in ['E', 'W'], "second char of pos must be E or W"

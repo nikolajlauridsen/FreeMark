@@ -22,19 +22,12 @@ class Worker(Frame):
         self.option_pane = options_pane
         self.watermarker = WaterMarker()
 
-        self.progress_frame = Frame(self)
-        self.progress_bar = Progressbar(self.progress_frame,
-                                        orient="horizontal",
-                                        mode="determinate",
-                                        length=500)
-
         self.create_widgets()
 
     def create_widgets(self):
         """Create GUI"""
-        Label(self.progress_frame, text="Progress").pack(side=LEFT, padx=10)
-        self.progress_bar.pack(side=RIGHT)
-        self.progress_frame.pack()
+        Progressbar(self, orient="horizontal", mode="determinate",
+                    length=600).pack()
         Button(self, text="Start", command=self.apply_watermarks).pack(pady=5)
 
     def fill_que(self):

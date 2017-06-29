@@ -27,7 +27,7 @@ class WaterMarkApp(Frame):
         options_pane = OptionsPane(options_frame)
 
         file_selector.pack(side=LEFT)
-        options_pane.pack(side=RIGHT, fill=Y)
+        options_pane.pack(side=RIGHT, fill=Y, pady=10)
 
         options_frame.pack()
 

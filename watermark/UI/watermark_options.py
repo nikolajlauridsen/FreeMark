@@ -83,8 +83,10 @@ class WatermarkOptions(Frame):
 
         # ---------- Opacity options ---------
         Label(self, text="Opacity and size").pack(anchor=W)
+
         opacity_frame = Frame(self)
         Label(opacity_frame, text="Opacity").pack(side=LEFT, anchor=S)
+
         Scale(opacity_frame, from_=0, to=100, orient=HORIZONTAL,
               variable=self.opacity).pack(side=LEFT, anchor=N, padx=5)
 

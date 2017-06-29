@@ -22,17 +22,19 @@ class Worker(Frame):
         self.option_pane = options_pane
         self.watermarker = WaterMarker()
 
+        self.progress_bar = Progressbar(self, orient="horizontal",
+                                        mode="determinate", length=600)
+
         self.create_widgets()
 
     def create_widgets(self):
         """Create GUI"""
-        Progressbar(self, orient="horizontal", mode="determinate",
-                    length=600).pack()
+        self.progress_bar.pack()
         Button(self, text="Start", command=self.apply_watermarks).pack(pady=5)
 
     def fill_que(self):
         """
-        Fill the worker que from the files in file selector,  
+        Fill the worker que from the files in file selector,
         and prepare te progress bar
         """
         files = self.file_selector.get_file_paths()

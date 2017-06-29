@@ -1,5 +1,4 @@
 from PIL import Image
-
 from watermark.tools.help import clamp
 
 
@@ -42,6 +41,7 @@ class WaterMarker:
         :param input_path: path to image on disk as a string
         :param output_path: save destination (path) as a string
         :param scale: Bool, scale watermark
+        :param opacity: watermark opacity (a value between 0 and 1)
         :param pos: Assumes first char is y (N/S) and second is x (E/W)
         :param padding: padding in format ((x_pad, unit), (y_pad, unit))
         """
@@ -63,6 +63,7 @@ class WaterMarker:
 
     @staticmethod
     def change_opacity(image, opacity):
+        assert 0.0 <= opacity <= 1.0, "opacity must be between 0 and 1"
         image = image.convert("RGBA")
         img_data = image.load()
         new_data = []
@@ -126,6 +127,12 @@ class WaterMarker:
         :param padding: padding in format ((x_pad, unit), (y_pad, unit))
         :return: (x, y) coordinates to place the upper left coordinates
         """
+        # Change pos and make sure the right values were provided
+        assert padding[1] in ["px", "%"], "unit must be px or %"
+        pos = pos.upper().strip()
+        assert pos[0] in ['N', 'S'], "first char of pos must be N or S"
+        assert pos[1] in ['E', 'W'], "second char of pos must be E or W"
+
         # Get padding size
         if padding[0][1] == "%":
             padx = int(image.size[0] * (padding[0][0] / 100))
@@ -137,7 +144,6 @@ class WaterMarker:
         else:
             pady = padding[1][0]
 
-        pos = pos.upper().strip()
         if pos[0] == "S":
             y = image.size[1] - watermark.size[1] - pady
         else:

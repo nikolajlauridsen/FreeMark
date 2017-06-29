@@ -32,11 +32,12 @@ class WatermarkOptions(Frame):
         pady = 5
         Label(self, text="Watermark options", font=14).pack(anchor=W)
 
+        # --------- Position options ---------
         pos_options = Frame(self)
         Label(pos_options, text="Position").pack(anchor=W)
 
+        # -- Padding --
         validate = (self.register(self.validate_int), '%P')
-
         padding_frame = Frame(pos_options)
         # Horizontal padding
         Label(padding_frame, text="Pad x").grid(column=0, row=0)
@@ -57,7 +58,7 @@ class WatermarkOptions(Frame):
 
         pos_frame = Frame(pos_options)
         radio_pad = 5
-
+        # -- Position --
         Radiobutton(pos_frame, text="Top left", variable=self.position,
                     value="NW").grid(column=0, row=0, sticky=W,
                                      padx=radio_pad, pady=radio_pad)
@@ -77,6 +78,7 @@ class WatermarkOptions(Frame):
 
         pos_options.pack(anchor=W)
 
+        # ----------- Size options -----------
         size_options = Frame(self)
         Label(size_options, text="Size").pack(anchor=W)
 
@@ -85,8 +87,6 @@ class WatermarkOptions(Frame):
                     onvalue=True, offvalue=False).pack()
 
         size_options.pack(anchor=W)
-
-
 
     @staticmethod
     def validate_int(number):

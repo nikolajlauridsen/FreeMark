@@ -35,7 +35,8 @@ class WaterMarker:
         self.watermark = None
 
     def apply_watermark(self, input_path, output_path, scale=True,
-                        pos="SE", padding=((20, "px"), (5, "px"))):
+                        pos="SE", padding=((20, "px"), (5, "px")),
+                        opacity=0.5):
         """
         Apply a watermark to an image
         :param input_path: path to image on disk as a string
@@ -51,11 +52,34 @@ class WaterMarker:
         else:
             scaled_watermark = self.watermark
 
+        # Change watermark opacity
+        scaled_watermark = self.change_opacity(scaled_watermark, opacity)
+
         position = self.get_watermark_position(image, scaled_watermark,
                                                pos=pos, padding=padding)
 
         image.paste(scaled_watermark, box=position, mask=scaled_watermark)
         image.save(output_path)
+
+    @staticmethod
+    def change_opacity(image, opacity):
+        image = image.convert("RGBA")
+        img_data = image.load()
+        new_data = []
+
+        width, height = image.size
+        for y in range(height):
+            for x in range(width):
+                if img_data[x, y][3] > 5:
+                    new_data.append((img_data[x, y][0],
+                                     img_data[x, y][1],
+                                     img_data[x, y][2],
+                                     int(img_data[x, y][3]*opacity)))
+                else:
+                    new_data.append(img_data[x, y])
+
+        image.putdata(new_data)
+        return image
 
     def scale_watermark(self, image):
         """

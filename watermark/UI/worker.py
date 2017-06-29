@@ -79,7 +79,8 @@ class Worker(Frame):
             try:
                 kwargs = {"pos": self.option_pane.get_watermark_pos(),
                           "padding": self.option_pane.get_padding(),
-                          "scale": self.option_pane.should_scale()}
+                          "scale": self.option_pane.should_scale(),
+                          "opacity": 1}
                 self.watermarker.apply_watermark(input_path,
                                                  self.option_pane.create_output_path(input_path),
                                                  **kwargs)

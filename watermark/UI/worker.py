@@ -77,10 +77,12 @@ class Worker(Frame):
             except queue.Empty:
                 return
             try:
+                kwargs = {"pos": self.option_pane.get_watermark_pos(),
+                          "padding": self.option_pane.get_padding(),
+                          "scale": self.option_pane.should_scale()}
                 self.watermarker.apply_watermark(input_path,
                                                  self.option_pane.create_output_path(input_path),
-                                                 pos=self.option_pane.get_watermark_pos(),
-                                                 padding=self.option_pane.get_padding())
+                                                 **kwargs)
             except Exception as e:
                 print("Error!\n", e)
             self.progress_bar.step()

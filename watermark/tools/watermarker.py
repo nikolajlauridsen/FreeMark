@@ -34,18 +34,23 @@ class WaterMarker:
         self.watermark_ratio = None
         self.watermark = None
 
-    def apply_watermark(self, input_path, output_path, pos="SE",
-                        padding=((20, "px"), (5, "px"))):
+    def apply_watermark(self, input_path, output_path, scale=True,
+                        pos="SE", padding=((20, "px"), (5, "px"))):
         """
         Apply a watermark to an image
         :param input_path: path to image on disk as a string
         :param output_path: save destination (path) as a string
+        :param scale: Bool, scale watermark
         :param pos: Assumes first char is y (N/S) and second is x (E/W)
         :param padding: padding in format ((x_pad, unit), (y_pad, unit))
         """
         image = Image.open(input_path)
 
-        scaled_watermark = self.scale_watermark(image)
+        if scale:
+            scaled_watermark = self.scale_watermark(image)
+        else:
+            scaled_watermark = self.watermark
+
         position = self.get_watermark_position(image, scaled_watermark,
                                                pos=pos, padding=padding)
 

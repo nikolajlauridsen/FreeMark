@@ -45,3 +45,6 @@ class OptionsPane(Frame):
     def get_padding(self):
         return (int(self.watermark_options.padx.get()), self.watermark_options.unit_x.get()), \
                (int(self.watermark_options.pady.get()), self.watermark_options.unit_y.get())
+
+    def should_scale(self):
+        return self.watermark_options.scale_watermark.get()

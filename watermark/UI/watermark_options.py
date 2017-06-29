@@ -22,6 +22,9 @@ class WatermarkOptions(Frame):
         self.unit_x.set(self.unit_options[1])
         self.unit_y.set(self.unit_options[1])
 
+        self.scale_watermark = BooleanVar()
+        self.scale_watermark.set(True)
+
         self.create_widgets()
 
     def create_widgets(self):
@@ -29,11 +32,12 @@ class WatermarkOptions(Frame):
         pady = 5
         Label(self, text="Watermark options", font=14).pack(anchor=W)
 
-        Label(self, text="Position").pack(anchor=W)
+        pos_options = Frame(self)
+        Label(pos_options, text="Position").pack(anchor=W)
 
         validate = (self.register(self.validate_int), '%P')
 
-        padding_frame = Frame(self)
+        padding_frame = Frame(pos_options)
         # Horizontal padding
         Label(padding_frame, text="Pad x").grid(column=0, row=0)
         Entry(padding_frame, textvariable=self.padx, validate="key", width=5,
@@ -51,7 +55,7 @@ class WatermarkOptions(Frame):
 
         padding_frame.pack(side=LEFT)
 
-        pos_frame = Frame(self)
+        pos_frame = Frame(pos_options)
         radio_pad = 5
 
         Radiobutton(pos_frame, text="Top left", variable=self.position,
@@ -70,6 +74,19 @@ class WatermarkOptions(Frame):
                     value="SE").grid(column=1, row=1,
                                      padx=radio_pad, pady=radio_pad)
         pos_frame.pack(side=LEFT, padx=30)
+
+        pos_options.pack(anchor=W)
+
+        size_options = Frame(self)
+        Label(size_options, text="Size").pack(anchor=W)
+
+        Checkbutton(size_options, text="Auto resize watermark",
+                    variable=self.scale_watermark,
+                    onvalue=True, offvalue=False).pack()
+
+        size_options.pack(anchor=W)
+
+
 
     @staticmethod
     def validate_int(number):

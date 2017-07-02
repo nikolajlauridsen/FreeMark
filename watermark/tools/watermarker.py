@@ -84,7 +84,7 @@ class WaterMarker:
 
     def scale_watermark(self, image):
         """
-        Get a scaled copy of the currently loaded watermark, 
+        Get a scaled copy of the currently loaded watermark,
         tries to scale it to from input image's size and orientation
         :param image: PIL image object that watermark will be applied to
         :return: scaled copy of currently loaded watermark as PIL image object
@@ -98,20 +98,19 @@ class WaterMarker:
             new_width = int(clamp(image_width * self.landscape_scale_factor,
                                   self.watermark.size[0] * self.min_scale,
                                   self.watermark.size[0] * self.max_scale))
-            # Determine height from new width and old height/width ratio
-            new_height = int(new_width / self.watermark_ratio)
         # Image is in the portrait position
         elif image_width < image_height:
             new_width = int(clamp(image_width * self.portrait_scale_factor,
                                   self.watermark.size[0] * self.min_scale,
                                   self.watermark.size[0] * self.max_scale))
-            new_height = int(new_width / self.watermark_ratio)
         # Image is equal sided
         else:
             new_width = int(clamp(image_width * self.equal_scale_factor,
                                   self.watermark.size[0] * self.min_scale,
                                   self.watermark.size[0] * self.max_scale))
-            new_height = int(new_width / self.watermark_ratio)
+
+        # Determine height from new width and old height/width ratio
+        new_height = int(new_width / self.watermark_ratio)
 
         # Apply it
         return self.watermark.copy().resize((new_width, new_height))

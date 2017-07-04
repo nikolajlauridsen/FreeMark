@@ -14,8 +14,6 @@ class Worker(Frame):
     def __init__(self, file_selector, options_pane, master=None):
         super().__init__(master)
 
-        self.threads = 1
-
         self.image_que = queue.Queue()
 
         self.file_selector = file_selector
@@ -56,9 +54,8 @@ class Worker(Frame):
         The baby factory, spawns child workers to apply the watermark to 
         the images
         """
-        for n in range(self.threads):
-            thread = threading.Thread(target=self.work)
-            thread.start()
+        thread = threading.Thread(target=self.work)
+        thread.start()
 
     def work(self):
         """

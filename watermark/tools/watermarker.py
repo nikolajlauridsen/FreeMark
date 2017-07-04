@@ -5,7 +5,6 @@ from watermark.tools.help import clamp
 class WaterMarker:
     """Object for applying a watermark to images"""
     def __init__(self):
-        self.watermark_path = None
         self.watermark_ratio = None
         self.watermark = None
         self.watermark_copy = None
@@ -24,15 +23,13 @@ class WaterMarker:
         (.png)
         :param watermark_path: path to watermark image as a string
         """
-        self.watermark_path = watermark_path
-        self.watermark = Image.open(self.watermark_path)
+        self.watermark = Image.open(watermark_path)
         self.watermark_ratio = self.watermark.size[0] / self.watermark.size[1]
 
     def clean(self):
         """
         Forget the currently loaded watermark
         """
-        self.watermark_path = None
         self.watermark_ratio = None
         self.watermark = None
 

@@ -8,6 +8,9 @@ class WaterMarker:
         self.watermark_path = None
         self.watermark_ratio = None
         self.watermark = None
+        self.watermark_copy = None
+        self.previous_size = None
+        self.needs_opacity = None
 
         self.landscape_scale_factor = 0.15
         self.portrait_scale_factor = 0.30
@@ -47,18 +50,32 @@ class WaterMarker:
         """
         image = Image.open(input_path)
 
-        if scale:
-            scaled_watermark = self.scale_watermark(image)
-        else:
-            scaled_watermark = self.watermark
+        if scale and \
+                (not self.previous_size or self.previous_size != image.size):
+            self.watermark_copy = self.scale_watermark(image)
+            if opacity < 1:
+                self.needs_opacity = True
+            else:
+                self.needs_opacity = False
+        elif not self.watermark_copy:
+            self.watermark_copy = self.watermark.copy()
+            if opacity < 1:
+                self.needs_opacity = True
+            else:
+                self.needs_opacity = False
+
+        self.previous_size = image.size
 
         # Change watermark opacity
-        scaled_watermark = self.change_opacity(scaled_watermark, opacity)
+        if self.needs_opacity:
+            self.watermark_copy = self.change_opacity(self.watermark_copy,
+                                                      opacity)
+            self.needs_opacity = False
 
-        position = self.get_watermark_position(image, scaled_watermark,
+        position = self.get_watermark_position(image, self.watermark_copy,
                                                pos=pos, padding=padding)
 
-        image.paste(scaled_watermark, box=position, mask=scaled_watermark)
+        image.paste(self.watermark_copy, box=position, mask=self.watermark_copy)
         image.save(output_path)
 
     @staticmethod

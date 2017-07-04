@@ -111,11 +111,11 @@ class OutputSelector(Frame):
             filename = filename.rsplit('.', maxsplit=1)
             return "{}_{}.{}".format(filename[0], self.fix.get(), filename[1])
 
-    def get_output_path(self, input_path):
+    def get_output_path(self, input_path, output_path):
         """
         Get output path from an input path
         :param input_path: path to original image
         :return: path to image destination
         """
         filename = self.rename_file(input_path, abs_path=True)
-        return os.path.join(self.get_dir(), filename)
+        return os.path.join(output_path, filename)

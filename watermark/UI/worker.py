@@ -56,6 +56,7 @@ class Worker(Frame):
             self.watermarker.prep(self.option_pane.get_watermark_path())
         except Exception as e:
             self.handle_error(e)
+
         self.start_button.config(state=DISABLED)
         self.start_work()
 
@@ -64,7 +65,19 @@ class Worker(Frame):
         The baby factory, spawns child workers to apply the watermark to 
         the images
         """
-        thread = threading.Thread(target=self.work)
+        try:
+            kwargs = {"pos": self.option_pane.get_watermark_pos(),
+                      "padding": self.option_pane.get_padding(),
+                      "scale": self.option_pane.should_scale(),
+                      "opacity": self.option_pane.get_opacity()}
+            output = self.option_pane.get_output_path()
+            print(output)
+        except BadOptionError as e:
+            self.handle_error(e)
+            return
+
+        thread = threading.Thread(target=self.work,
+                                  kwargs=kwargs, args=(output, ))
         thread.start()
 
     def handle_error(self, e):
@@ -73,7 +86,7 @@ class Worker(Frame):
         self.start_button.config(state=NORMAL)
         messagebox.showerror("Error", str(e))
 
-    def work(self):
+    def work(self, outpath, **kwargs):
         """
         Work instructions for the child workers
         keep grabbing a new image path and then apply watermark with 
@@ -86,12 +99,8 @@ class Worker(Frame):
                 self.start_button.config(state=NORMAL)
                 return
             try:
-                kwargs = {"pos": self.option_pane.get_watermark_pos(),
-                          "padding": self.option_pane.get_padding(),
-                          "scale": self.option_pane.should_scale(),
-                          "opacity": self.option_pane.get_opacity()}
                 self.watermarker.apply_watermark(input_path,
-                                                 self.option_pane.create_output_path(input_path),
+                                                 self.option_pane.create_output_path(input_path, outpath),
                                                  **kwargs)
             except BadOptionError as e:
                 self.handle_error(e)

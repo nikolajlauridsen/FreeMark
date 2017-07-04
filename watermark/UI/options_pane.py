@@ -36,8 +36,8 @@ class OptionsPane(Frame):
     def get_output_path(self):
         return self.output_selector.get_dir()
 
-    def create_output_path(self, input_path):
-        return self.output_selector.get_output_path(input_path)
+    def create_output_path(self, input_path, output_path):
+        return self.output_selector.get_output_path(input_path, output_path)
 
     def get_watermark_pos(self):
         return self.watermark_options.position.get()

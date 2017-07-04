@@ -77,6 +77,6 @@ class Worker(Frame):
                                                  self.option_pane.create_output_path(input_path),
                                                  **kwargs)
             except Exception as e:
-                print("Error!\n", e)
+                print("Error!\n", type(e), "\n", e)
             self.progress_bar.step()
 

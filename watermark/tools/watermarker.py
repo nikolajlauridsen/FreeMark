@@ -72,7 +72,10 @@ class WaterMarker:
         position = self.get_watermark_position(image, self.watermark_copy,
                                                pos=pos, padding=padding)
 
-        image.paste(self.watermark_copy, box=position, mask=self.watermark_copy)
+        try:
+            image.paste(self.watermark_copy, box=position, mask=self.watermark_copy)
+        except ValueError:
+            image.paste(self.watermark_copy, box=position)
         image.save(output_path)
 
     @staticmethod

@@ -1,6 +1,9 @@
 from tkinter import *
 from tkinter import filedialog
+from tkinter import messagebox
 import os
+
+from ..tools.errors import BadOptionError
 
 NONE = 0
 PRE = 1
@@ -56,7 +59,18 @@ class OutputSelector(Frame):
 
     def get_dir(self):
         """Returns the currently selected dir"""
-        return self.output_dir.get()
+        if os.path.isdir(self.output_dir.get()):
+            return self.output_dir.get()
+
+        if messagebox.askyesno("Create folder",
+                                 "Folder doesn't exist, create it?"):
+            try:
+                os.makedirs(self.output_dir.get())
+            except OSError:
+                raise BadOptionError("Invalid character in folder name.")
+            return self.output_dir.get()
+        else:
+            raise BadOptionError("Output location doesn't exist.")
 
     def rename_file(self, filename, abs_path=False):
         """
@@ -83,4 +97,4 @@ class OutputSelector(Frame):
         :return: path to image destination
         """
         filename = self.rename_file(input_path, abs_path=True)
-        return os.path.join(self.output_dir.get(), filename)
+        return os.path.join(self.get_dir(), filename)

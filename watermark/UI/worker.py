@@ -1,8 +1,10 @@
 from tkinter import *
 from tkinter.ttk import Progressbar
+from tkinter import messagebox
 import threading
 import queue
 
+from ..tools.errors import BadOptionError
 from watermark.tools.watermarker import WaterMarker
 
 
@@ -76,7 +78,11 @@ class Worker(Frame):
                 self.watermarker.apply_watermark(input_path,
                                                  self.option_pane.create_output_path(input_path),
                                                  **kwargs)
+            except BadOptionError as e:
+                self.image_que = queue.Queue()
+                messagebox.showerror("Error", str(e))
+                print("Bad config, stopping\n", e)
+                return
             except Exception as e:
                 print("Error!\n", type(e), "\n", e)
             self.progress_bar.step()
-

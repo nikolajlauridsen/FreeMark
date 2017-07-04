@@ -23,7 +23,12 @@ class WaterMarker:
         (.png)
         :param watermark_path: path to watermark image as a string
         """
-        self.watermark = Image.open(watermark_path)
+        try:
+            self.watermark = Image.open(watermark_path)
+        except FileNotFoundError:
+            raise FileNotFoundError("Watermark not found.")
+        except OSError:
+            raise OSError("Incompatible watermark file type.")
         self.watermark_ratio = self.watermark.size[0] / self.watermark.size[1]
 
     def clean(self):

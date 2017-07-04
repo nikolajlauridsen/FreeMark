@@ -22,15 +22,19 @@ class Worker(Frame):
         self.option_pane = options_pane
         self.watermarker = WaterMarker()
 
+        self.progress_var = IntVar()
         self.progress_bar = Progressbar(self, orient="horizontal",
-                                        mode="determinate", length=600)
+                                        mode="determinate", length=600,
+                                        variable=self.progress_var)
+        self.start_button = Button(self, text="Start",
+                                   command=self.apply_watermarks)
 
         self.create_widgets()
 
     def create_widgets(self):
         """Create GUI"""
         self.progress_bar.pack()
-        Button(self, text="Start", command=self.apply_watermarks).pack(pady=5)
+        self.start_button.pack(pady=5)
 
     def fill_que(self):
         """
@@ -48,7 +52,11 @@ class Worker(Frame):
         before spawning workers
         """
         self.fill_que()
-        self.watermarker.prep(self.option_pane.get_watermark_path())
+        try:
+            self.watermarker.prep(self.option_pane.get_watermark_path())
+        except Exception as e:
+            self.handle_error(e)
+        self.start_button.config(state=DISABLED)
         self.start_work()
 
     def start_work(self):
@@ -58,6 +66,12 @@ class Worker(Frame):
         """
         thread = threading.Thread(target=self.work)
         thread.start()
+
+    def handle_error(self, e):
+        self.image_que = queue.Queue()
+        self.progress_var.set(0)
+        self.start_button.config(state=NORMAL)
+        messagebox.showerror("Error", str(e))
 
     def work(self):
         """
@@ -69,6 +83,7 @@ class Worker(Frame):
             try:
                 input_path = self.image_que.get(block=False)
             except queue.Empty:
+                self.start_button.config(state=NORMAL)
                 return
             try:
                 kwargs = {"pos": self.option_pane.get_watermark_pos(),
@@ -79,8 +94,7 @@ class Worker(Frame):
                                                  self.option_pane.create_output_path(input_path),
                                                  **kwargs)
             except BadOptionError as e:
-                self.image_que = queue.Queue()
-                messagebox.showerror("Error", str(e))
+                self.handle_error(e)
                 print("Bad config, stopping\n", e)
                 return
             except Exception as e:

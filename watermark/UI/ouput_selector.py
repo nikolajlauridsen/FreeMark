@@ -2,6 +2,7 @@ from tkinter import *
 from tkinter import filedialog
 from tkinter import messagebox
 import os
+import re
 
 from ..tools.errors import BadOptionError
 
@@ -19,6 +20,8 @@ class OutputSelector(Frame):
         self.fix_position = IntVar()
         self.output_dir = StringVar()
         self.output_dir.set("Choose output folder")
+
+        self.validate_pattern = re.compile(r'[<|>*:?"/\\]')
         self.create_widgets()
 
     def create_widgets(self):
@@ -36,7 +39,9 @@ class OutputSelector(Frame):
 
         fix_frame = Frame(self)
         Label(fix_frame, text="Fix: ").pack(side=LEFT)
-        Entry(fix_frame, width=30,
+
+        validate = (self.register(self.validate_fix), '%P')
+        Entry(fix_frame, width=30, validate="key", validatecommand=validate,
               textvariable=self.fix).pack(side=LEFT, padx=5)
         # Me? I know who I am
         # I'm a frame playing a frame, disguised as another frame!
@@ -50,6 +55,14 @@ class OutputSelector(Frame):
         radio_frame.pack(anchor=CENTER)
         fix_frame.pack(fill=X)
 
+    def validate_fix(self, fix_change):
+        assert type(fix_change) == str, "Path must be a string"
+
+        if re.search(self.validate_pattern, fix_change):
+            return False
+
+        return True
+
     def choose_dir(self):
         """
         Prompts the user to choose a folder.
@@ -59,16 +72,24 @@ class OutputSelector(Frame):
 
     def get_dir(self):
         """Returns the currently selected dir"""
-        if os.path.isdir(self.output_dir.get()):
-            return self.output_dir.get()
+        out_path = self.output_dir.get().rstrip().lstrip()
+
+        if out_path.strip() == "":
+            raise BadOptionError("Missing output location")
+
+        if not os.path.isabs(out_path):
+            raise BadOptionError("Please use an absolute output path")
+
+        if os.path.isdir(out_path):
+            return out_path
 
         if messagebox.askyesno("Create folder",
-                                 "Folder doesn't exist, create it?"):
+                               "Folder doesn't exist, create it?"):
             try:
-                os.makedirs(self.output_dir.get())
+                os.makedirs(out_path)
             except OSError:
                 raise BadOptionError("Invalid character in folder name.")
-            return self.output_dir.get()
+            return out_path
         else:
             raise BadOptionError("Output location doesn't exist.")
 

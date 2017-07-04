@@ -9,3 +9,4 @@ env/*
 build
 include
 install_prep.bat
+requirements-env

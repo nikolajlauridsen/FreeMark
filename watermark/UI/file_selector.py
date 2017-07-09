@@ -76,6 +76,7 @@ class FileSelector(Frame):
 
     def refresh_files(self):
         """Update files list"""
+        self.files = []
         types = ['.png', '.jpg', '.jpeg', '.bmp', '.tiff']
         try:
             for _file in os.listdir(self.base_dir.get()):

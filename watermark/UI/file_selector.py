@@ -1,5 +1,6 @@
 from tkinter import *
 from tkinter import filedialog
+from tkinter import messagebox
 import os
 
 
@@ -12,8 +13,6 @@ class FileSelector(Frame):
         self.master = master
 
         self.base_dir = StringVar()
-        self.error = StringVar()
-        self.error.set("Choose folder")
         self.files = []
 
         self.button_frame = Frame(self)
@@ -22,7 +21,6 @@ class FileSelector(Frame):
         self.files_view = Listbox(self, width=65, height=20)
         self.folder_entry = Entry(self.folder_frame, width=50,
                                   textvariable=self.base_dir)
-        self.warning_label = Label(self.button_frame, textvariable=self.error)
 
         self.create_widgets()
 
@@ -45,7 +43,6 @@ class FileSelector(Frame):
                command=self.select_files).pack(side=LEFT)
         Button(self.button_frame, text="Clear files",
                command=self.clear_files).pack(side=LEFT, padx=pad_x)
-        self.warning_label.pack(padx=pad_x*2, side=RIGHT)
 
         # Pack frames
         self.folder_frame.pack()
@@ -68,7 +65,6 @@ class FileSelector(Frame):
         self.files_view.delete(0, END)
         for file in self.files:
             self.files_view.insert(END, file)
-        self.error.set("Waiting")
 
     def clear_files(self):
         self.files = []
@@ -85,7 +81,7 @@ class FileSelector(Frame):
                         if _file.endswith(_type) and _file not in self.files:
                             self.files.append(_file)
         except FileNotFoundError:
-            self.error.set('Directory not found')
+            messagebox.showerror("Error", "Directory not foundx")
             return
         self.refresh_list()
 

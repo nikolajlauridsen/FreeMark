@@ -61,6 +61,9 @@ class Worker(Frame):
         Fill the que, then prepare the watermarker
         before spawning workers
         """
+        if len(self.file_selector.files) < 1:
+            messagebox.showerror('Nothing to watermark',
+                                 'Please choose one or more files to watermark.')
         self.fill_que()
         try:
             self.watermarker.prep(self.option_pane.get_watermark_path())

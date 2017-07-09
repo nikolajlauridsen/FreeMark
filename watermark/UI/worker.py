@@ -91,11 +91,14 @@ class Worker(Frame):
                                   kwargs=kwargs, args=(output, ))
         thread.start()
 
-    def handle_error(self, e):
+    def reset(self):
         self.image_que = queue.Queue()
         self.progress_var.set(0)
         self.start_button.config(state=NORMAL)
         self.stop_button.config(state=DISABLED)
+
+    def handle_error(self, e):
+        self.reset()
         messagebox.showerror("Error", str(e))
 
     def work(self, outpath, **kwargs):
@@ -124,9 +127,7 @@ class Worker(Frame):
                 print("Error!\n", type(e), "\n", e)
             self.progress_bar.step()
 
-        self.start_button.config(state=NORMAL)
-        self.stop_button.config(state=DISABLED)
-        self.progress_var.set(0)
+        self.reset()
 
     def stop_work(self):
         self.running = False

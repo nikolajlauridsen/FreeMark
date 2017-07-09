@@ -16,6 +16,8 @@ class Worker(Frame):
     def __init__(self, file_selector, options_pane, master=None):
         super().__init__(master)
 
+        self.running = False
+
         self.image_que = queue.Queue()
 
         self.file_selector = file_selector
@@ -26,15 +28,23 @@ class Worker(Frame):
         self.progress_bar = Progressbar(self, orient="horizontal",
                                         mode="determinate", length=600,
                                         variable=self.progress_var)
-        self.start_button = Button(self, text="Start",
+
+        self.button_frame = Frame(self)
+        self.start_button = Button(self.button_frame, text="Start",
                                    command=self.apply_watermarks)
+        self.stop_button = Button(self.button_frame, text="Stop",
+                                  command=self.stop_work)
 
         self.create_widgets()
 
     def create_widgets(self):
         """Create GUI"""
         self.progress_bar.pack()
-        self.start_button.pack(pady=5)
+
+        self.stop_button.config(state=DISABLED)
+        self.start_button.pack(side=LEFT, padx=10)
+        self.stop_button.pack(side=LEFT)
+        self.button_frame.pack(pady=10)
 
     def fill_que(self):
         """
@@ -57,6 +67,7 @@ class Worker(Frame):
         except Exception as e:
             self.handle_error(e)
 
+        self.stop_button.config(state=NORMAL)
         self.start_button.config(state=DISABLED)
         self.start_work()
 
@@ -75,7 +86,7 @@ class Worker(Frame):
         except BadOptionError as e:
             self.handle_error(e)
             return
-
+        self.running = True
         thread = threading.Thread(target=self.work,
                                   kwargs=kwargs, args=(output, ))
         thread.start()
@@ -84,6 +95,7 @@ class Worker(Frame):
         self.image_que = queue.Queue()
         self.progress_var.set(0)
         self.start_button.config(state=NORMAL)
+        self.stop_button.config(state=DISABLED)
         messagebox.showerror("Error", str(e))
 
     def work(self, outpath, **kwargs):
@@ -92,11 +104,13 @@ class Worker(Frame):
         keep grabbing a new image path and then apply watermark with 
         the watermarker, using option pane to create paths
         """
-        while True:
+        while self.running:
             try:
                 input_path = self.image_que.get(block=False)
             except queue.Empty:
                 self.start_button.config(state=NORMAL)
+                self.stop_button.config(state=DISABLED)
+                self.running = False
                 return
             try:
                 self.watermarker.apply_watermark(input_path,
@@ -109,3 +123,10 @@ class Worker(Frame):
             except Exception as e:
                 print("Error!\n", type(e), "\n", e)
             self.progress_bar.step()
+
+        self.start_button.config(state=NORMAL)
+        self.stop_button.config(state=DISABLED)
+        self.progress_var.set(0)
+
+    def stop_work(self):
+        self.running = False

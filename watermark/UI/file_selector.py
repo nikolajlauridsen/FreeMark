@@ -60,7 +60,8 @@ class FileSelector(Frame):
         files = filedialog.askopenfilenames(title="Select images",
                                             filetypes=file_types)
         for _file in files:
-            self.files.append(_file)
+            if _file not in self.files:
+                self.files.append(_file)
         self.refresh_list()
 
     def refresh_list(self):
@@ -80,7 +81,7 @@ class FileSelector(Frame):
             for _file in os.listdir(self.base_dir.get()):
                 if os.path.isfile(os.path.join(self.base_dir.get(), _file)):
                     for _type in types:
-                        if _file.endswith(_type):
+                        if _file.endswith(_type) and _file not in self.files:
                             self.files.append(_file)
         except FileNotFoundError:
             self.error.set('Directory not found')

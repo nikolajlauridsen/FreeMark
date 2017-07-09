@@ -41,8 +41,10 @@ class FileSelector(Frame):
         # Button panel and error message
         Button(self.button_frame, text="Choose Folder",
                command=self.fill_list).pack(side=LEFT, padx=pad_x)
-        Button(self.button_frame, text="Load files",
-               command=self.refresh_files).pack(side=LEFT)
+        Button(self.button_frame, text="Choose files",
+               command=self.select_files).pack(side=LEFT)
+        Button(self.button_frame, text="Clear files",
+               command=self.clear_files).pack(side=LEFT, padx=pad_x)
         self.warning_label.pack(padx=pad_x*2, side=RIGHT)
 
         # Pack frames
@@ -53,20 +55,37 @@ class FileSelector(Frame):
         """Prompt the user for a base dir"""
         self.base_dir.set(filedialog.askdirectory())
 
-    def refresh_files(self):
-        """Update files list"""
-        try:
-            self.files = [file for file in os.listdir(self.base_dir.get())
-                          if os.path.isfile(os.path.join(self.base_dir.get(),
-                                                         file))]
-        except FileNotFoundError:
-            self.error.set('Directory not found')
-            return
+    def select_files(self):
+        file_types = [('Images', '*.jpg;*.jpeg;*.png;*.bmp;*.tiff')]
+        files = filedialog.askopenfilenames(title="Select images",
+                                            filetypes=file_types)
+        for _file in files:
+            self.files.append(_file)
+        self.refresh_list()
 
+    def refresh_list(self):
         self.files_view.delete(0, END)
         for file in self.files:
             self.files_view.insert(END, file)
         self.error.set("Waiting")
+
+    def clear_files(self):
+        self.files = []
+        self.refresh_list()
+
+    def refresh_files(self):
+        """Update files list"""
+        types = ['.png', '.jpg', '.jpeg', '.bmp', '.tiff']
+        try:
+            for _file in os.listdir(self.base_dir.get()):
+                if os.path.isfile(os.path.join(self.base_dir.get(), _file)):
+                    for _type in types:
+                        if _file.endswith(_type):
+                            self.files.append(_file)
+        except FileNotFoundError:
+            self.error.set('Directory not found')
+            return
+        self.refresh_list()
 
     def fill_list(self):
         """Fill the list, by first asking the user to choose a directory

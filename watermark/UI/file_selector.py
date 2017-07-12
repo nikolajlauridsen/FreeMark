@@ -37,16 +37,29 @@ class FileSelector(Frame):
         self.folder_entry.pack(side=RIGHT)
 
         # Button panel and error message
-        Button(self.button_frame, text="Choose Folder",
+        Button(self.button_frame, text="Choose folder",
                command=self.fill_list).pack(side=LEFT, padx=pad_x)
-        Button(self.button_frame, text="Choose files",
+
+        Button(self.button_frame, text="Choose file(s)",
                command=self.select_files).pack(side=LEFT)
+
         Button(self.button_frame, text="Clear files",
-               command=self.clear_files).pack(side=LEFT, padx=pad_x)
+               command=self.clear_files).pack(side=RIGHT)
+
+        Button(self.button_frame, text="Remove file",
+               command=self.remove_item).pack(side=RIGHT, padx=pad_x)
 
         # Pack frames
         self.folder_frame.pack()
         self.button_frame.pack(pady=pad_y)
+
+    def remove_item(self):
+        """
+        Delete selected item from the list view 
+        and copy files list from view
+        """
+        self.files_view.delete(ANCHOR)
+        self.files = self.files_view.get(0, END)
 
     def prompt_directory(self):
         """Prompt the user for a base dir"""
@@ -63,8 +76,8 @@ class FileSelector(Frame):
 
     def refresh_list(self):
         self.files_view.delete(0, END)
-        for file in self.files:
-            self.files_view.insert(END, file)
+        for _file in self.files:
+            self.files_view.insert(END, _file)
 
     def clear_files(self):
         self.files = []

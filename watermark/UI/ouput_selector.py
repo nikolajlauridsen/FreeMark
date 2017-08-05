@@ -22,38 +22,64 @@ class OutputSelector(Frame):
         self.output_dir.set("Choose output folder")
 
         self.validate_pattern = re.compile(r'[<|>*:?"/\\]')
+
+        self.entry_frame = Frame(self)
+        self.fix_frame = Frame(self)
+        self.radio_frame = Frame(self.fix_frame)
         self.create_widgets()
 
     def create_widgets(self):
         """Create and pack the TK widgets"""
         Label(self, text="Output options", font=14).pack(anchor=W)
 
-        entry_frame = Frame(self)
-        Entry(entry_frame, width=50,
+        Entry(self.entry_frame, width=50,
               textvariable=self.output_dir).pack(side=LEFT)
-        Button(entry_frame, text="Choose folder",
+        Button(self.entry_frame, text="Choose folder",
                command=self.choose_dir).pack(side=LEFT, padx=10)
-        entry_frame.pack(fill=X)
+        self.entry_frame.pack(fill=X)
 
         Label(self, text="Rename files").pack(anchor=W)
 
-        fix_frame = Frame(self)
-        Label(fix_frame, text="Fix: ").pack(side=LEFT)
+        Label(self.fix_frame, text="Fix: ").pack(side=LEFT)
 
         validate = (self.register(self.validate_fix), '%P')
-        Entry(fix_frame, width=30, validate="key", validatecommand=validate,
+        Entry(self.fix_frame, width=30, validate="key", validatecommand=validate,
               textvariable=self.fix).pack(side=LEFT, padx=5)
         # Me? I know who I am
         # I'm a frame playing a frame, disguised as another frame!
-        radio_frame = Frame(fix_frame)
-        Radiobutton(radio_frame, text="None", variable=self.fix_position,
+        Radiobutton(self.radio_frame, text="None", variable=self.fix_position,
                     value=NONE).pack(side=RIGHT)
-        Radiobutton(radio_frame, text="Prefix", variable=self.fix_position,
+        Radiobutton(self.radio_frame, text="Prefix", variable=self.fix_position,
                     value=PRE).pack(side=RIGHT)
-        Radiobutton(radio_frame, text="Suffix", variable=self.fix_position,
+        Radiobutton(self.radio_frame, text="Suffix", variable=self.fix_position,
                     value=SUFFIX).pack(side=RIGHT)
-        radio_frame.pack(anchor=CENTER)
-        fix_frame.pack(fill=X)
+        self.radio_frame.pack(anchor=CENTER)
+        self.fix_frame.pack(fill=X)
+
+    def lock(self):
+        """
+        Lock down the output selector so the user doesn't mess with it
+        while it's running
+        """
+        for child in (self.fix_frame.winfo_children()
+                      + self.radio_frame.winfo_children()
+                      + self.entry_frame.winfo_children()):
+            try:
+                child.config(state=DISABLED)
+            except TclError:
+                pass
+
+    def unlock(self):
+        """
+        Opposite of lock
+        """
+        for child in (self.fix_frame.winfo_children()
+                      + self.radio_frame.winfo_children()
+                      + self.entry_frame.winfo_children()):
+            try:
+                child.config(state=NORMAL)
+            except TclError:
+                pass
 
     def validate_fix(self, fix_change):
         assert type(fix_change) == str, "Path must be a string"

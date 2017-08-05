@@ -98,6 +98,7 @@ class Worker(Frame):
             self.handle_error(e)
             return
         self.running = True
+        self.option_pane.output_selector.lock()
         thread = threading.Thread(target=self.work,
                                   kwargs=kwargs, args=(output, ))
         thread.start()
@@ -109,6 +110,7 @@ class Worker(Frame):
         self.file_count.set(0)
         self.start_button.config(state=NORMAL)
         self.stop_button.config(state=DISABLED)
+        self.option_pane.output_selector.unlock()
 
     def handle_error(self, e):
         self.reset()
@@ -126,6 +128,7 @@ class Worker(Frame):
             except queue.Empty:
                 self.start_button.config(state=NORMAL)
                 self.stop_button.config(state=DISABLED)
+                self.option_pane.output_selector.unlock()
                 self.progress_var.set(0)
                 self.file_count.set(0)
                 self.running = False

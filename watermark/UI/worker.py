@@ -22,7 +22,7 @@ class Worker(Frame):
 
         self.file_selector = file_selector
         self.option_pane = options_pane
-        self.watermarker = WaterMarker()
+        self.watermarker = WaterMarker
 
         self.progress_var = IntVar()
         self.file_count = IntVar()
@@ -74,7 +74,7 @@ class Worker(Frame):
                                  'Please choose one or more files to watermark.')
         self.fill_que()
         try:
-            self.watermarker.prep(self.option_pane.get_watermark_path())
+            self.watermarker = WaterMarker(self.option_pane.get_watermark_path())
         except Exception as e:
             self.handle_error(e)
 
@@ -104,6 +104,7 @@ class Worker(Frame):
 
     def reset(self):
         self.image_que = queue.Queue()
+        self.watermarker = WaterMarker
         self.progress_var.set(0)
         self.file_count.set(0)
         self.start_button.config(state=NORMAL)

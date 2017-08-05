@@ -4,7 +4,7 @@ from watermark.tools.help import clamp
 
 class WaterMarker:
     """Object for applying a watermark to images"""
-    def __init__(self):
+    def __init__(self, watermark_path):
         self.watermark_ratio = None
         self.watermark = None
         self.watermark_copy = None
@@ -17,12 +17,7 @@ class WaterMarker:
         self.min_scale = 0.5
         self.max_scale = 3
 
-    def prep(self, watermark_path):
-        """
-        Prepare the watermarker, by giving in a path to a watermark image
-        (.png)
-        :param watermark_path: path to watermark image as a string
-        """
+        # Prepare the watermarker
         try:
             self.watermark = Image.open(watermark_path)
         except FileNotFoundError:
@@ -93,6 +88,7 @@ class WaterMarker:
         width, height = image.size
         for y in range(height):
             for x in range(width):
+                #  TODO: Is this not supposed to be the other way around?
                 if img_data[x, y][3] > 5:
                     new_data.append((img_data[x, y][0],
                                      img_data[x, y][1],

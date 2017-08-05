@@ -1,0 +1,27 @@
+                            @@======================@@
+                            ||     New features     ||
+                            ||   ready for release  ||
+                            @@======================@@
+         @@==================================================================@@
+         ||    Stop button                                                   ||
+         ||    File select, select individual files instead of folders       ||
+         ||    Filter input when loading from folders                        ||
+         ||    (excludes anything but supported image formats)               ||
+         ||    Duplicate files will no longer be allowed in the file list    ||
+         ||    Replaced ugly warning label with dialog boxes                 ||
+         ||    Output options now locks when the program is working          ||
+         ||    Fixed bug where opacity would not be applied correctly        ||
+         @@==================================================================@@
+
+
+                            @@======================@@
+                            ||     TODO: Maybe?     ||
+                            @@======================@@
+         @@==================================================================@@
+         ||                           ** Logo                                ||
+         ||                           ** Name                                ||
+         ||                  ** Improve auto scaling                         ||
+         ||                ** Tooltips for auto-scaling                      ||
+         ||          ** allow user to tweak auto scaling parameters          ||
+         ||  ** Show progess as fraction as well as progress bar (fix 1.0/5) ||
+         @@==================================================================@@

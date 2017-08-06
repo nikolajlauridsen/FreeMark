@@ -6,6 +6,7 @@ def main():
     """Main method, starts TK and loads Watermark"""
     root = Tk()
     root.title('Watermark')
+    root.iconbitmap('logo.ico')
 
     watermark = WaterMarkApp(master=root)
     watermark.mainloop()

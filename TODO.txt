@@ -3,7 +3,8 @@
                             ||   ready for release  ||
                             @@======================@@
          @@==================================================================@@
-         ||    Stop button                                                   ||
+         ||    Stop button has been added                                    ||
+         ||    Logo has been added                                           ||
          ||    File select, select individual files instead of folders       ||
          ||    Filter input when loading from folders                        ||
          ||    (excludes anything but supported image formats)               ||
@@ -18,7 +19,6 @@
                             ||     TODO: Maybe?     ||
                             @@======================@@
          @@==================================================================@@
-         ||                           ** Logo                                ||
          ||                           ** Name                                ||
          ||                  ** Improve auto scaling                         ||
          ||                ** Tooltips for auto-scaling                      ||

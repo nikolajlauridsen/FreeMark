@@ -1,3 +1,2 @@
-cx-Freeze==5.0.2
 olefile==0.44
 Pillow==4.1.1

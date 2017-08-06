@@ -24,7 +24,8 @@ if sys.platform == "win32":
 
 exe = Executable("watermark.py",
                  base=base,
-                 targetName="Watermark.exe")
+                 targetName="Watermark.exe",
+                 icon='logo.ico')
 
 setup(name="Watermark",
       version="0.0.3",

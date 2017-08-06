@@ -1,8 +1,8 @@
+*.indd
 *.jpg
 *.png
 .idea/*
 *.psd
-*.zip
 *.gif
 *.pyc
 env/*

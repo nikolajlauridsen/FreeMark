@@ -27,8 +27,7 @@ class Worker(Frame):
         self.progress_var = IntVar()
         self.file_count = IntVar()
         self.progress_bar = Progressbar(self, orient="horizontal",
-                                        mode="determinate", length=600,
-                                        variable=self.progress_var)
+                                        mode="determinate", length=600)
 
         self.button_frame = Frame(self)
         self.start_button = Button(self.button_frame, text="Start",
@@ -144,6 +143,7 @@ class Worker(Frame):
             except Exception as e:
                 print("Error!\n", type(e), "\n", e)
             self.progress_bar.step(amount=1)
+            self.progress_var.set(self.progress_var.get()+1)
 
         self.reset()
 

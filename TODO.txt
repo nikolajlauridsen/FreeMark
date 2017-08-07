@@ -5,6 +5,7 @@
          @@==================================================================@@
          ||    Stop button has been added                                    ||
          ||    Logo has been added                                           ||
+         ||    Progress will now also be shown as a number                   ||
          ||    File select, select individual files instead of folders       ||
          ||    Filter input when loading from folders                        ||
          ||    (excludes anything but supported image formats)               ||
@@ -23,5 +24,4 @@
          ||                  ** Improve auto scaling                         ||
          ||                ** Tooltips for auto-scaling                      ||
          ||          ** allow user to tweak auto scaling parameters          ||
-         ||  ** Show progess as fraction as well as progress bar (fix 1.0/5) ||
          @@==================================================================@@

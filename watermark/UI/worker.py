@@ -31,9 +31,9 @@ class Worker(Frame):
 
         self.button_frame = Frame(self)
         self.start_button = Button(self.button_frame, text="Start",
-                                   command=self.apply_watermarks)
+                                   command=self.apply_watermarks, width=10)
         self.stop_button = Button(self.button_frame, text="Stop",
-                                  command=self.stop_work)
+                                  command=self.stop_work, width=10)
         self.counter_frame = Frame(self)
 
         self.create_widgets()
@@ -48,7 +48,7 @@ class Worker(Frame):
         self.progress_bar.pack()
 
         self.stop_button.config(state=DISABLED)
-        self.start_button.pack(side=LEFT, padx=10)
+        self.start_button.pack(side=LEFT, padx=15)
         self.stop_button.pack(side=LEFT)
         self.button_frame.pack(pady=10)
 

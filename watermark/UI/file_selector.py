@@ -19,7 +19,7 @@ class FileSelector(Frame):
         self.folder_frame = Frame(self)
 
         self.files_view = Listbox(self, width=65, height=20)
-        self.folder_entry = Entry(self.folder_frame, width=50,
+        self.folder_entry = Entry(self.folder_frame, width=58,
                                   textvariable=self.base_dir)
 
         self.create_widgets()
@@ -34,7 +34,7 @@ class FileSelector(Frame):
 
         # Folder entry field
         Label(self.folder_frame, text="Folder:").pack(side=LEFT)
-        self.folder_entry.pack(side=RIGHT)
+        self.folder_entry.pack(side=RIGHT, pady=pad_y)
 
         # Button panel and error message
         Button(self.button_frame, text="Choose folder",

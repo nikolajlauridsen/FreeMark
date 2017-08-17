@@ -36,7 +36,7 @@ class OutputSelector(Frame):
               textvariable=self.output_dir).pack(side=LEFT)
         Button(self.entry_frame, text="Choose folder",
                command=self.choose_dir).pack(side=LEFT, padx=10)
-        self.entry_frame.pack(fill=X)
+        self.entry_frame.pack(fill=X, pady=5)
 
         Label(self, text="Rename files").pack(anchor=W)
 

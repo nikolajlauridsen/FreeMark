@@ -1,7 +1,7 @@
-                            @@======================@@
-                            ||     New features     ||
-                            ||   ready for release  ||
-                            @@======================@@
+                              @@======================@@
+                              ||     New features     ||
+                              ||   ready for release  ||
+                              @@======================@@
          @@==================================================================@@
          ||    Stop button has been added                                    ||
          ||    Logo has been added                                           ||
@@ -16,12 +16,13 @@
          @@==================================================================@@
 
 
-                            @@======================@@
-                            ||     TODO: Maybe?     ||
-                            @@======================@@
+                              @@======================@@
+                              ||     TODO: Maybe?     ||
+                              @@======================@@
          @@==================================================================@@
-         ||                           ** Name                                ||
-         ||                  ** Improve auto scaling                         ||
-         ||                ** Tooltips for auto-scaling                      ||
-         ||          ** allow user to tweak auto scaling parameters          ||
+         ||    Name (FreeMarker?)                                            ||
+	     ||    New logo to fit new name                                      ||
+         ||    Improve auto scaling                                          ||
+         ||    Tooltips for auto-scaling                                     ||
+         ||    Allow user to tweak auto scaling parameters                   ||
          @@==================================================================@@

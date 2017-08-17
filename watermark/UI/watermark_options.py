@@ -100,7 +100,7 @@ class WatermarkOptions(Frame):
         # ----------- Size options -----------
         Checkbutton(self, text="Auto resize watermark",
                     variable=self.scale_watermark,
-                    onvalue=True, offvalue=False).pack(anchor=W,)
+                    onvalue=True, offvalue=False).pack(anchor=W, pady=(5, 0))
 
     @staticmethod
     def validate_int(number):

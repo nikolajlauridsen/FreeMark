@@ -24,7 +24,7 @@ class OptionsPane(Frame):
         Label(self, text="Settings", font=14).pack(anchor=N)
         self.watermark_selector.pack(fill=X, pady=pady, anchor=N)
         self.watermark_options.pack(fill=X, pady=pady, anchor=N)
-        self.output_selector.pack(fill=X, pady=pady, anchor=N)
+        self.output_selector.pack(fill=X, anchor=N)
 
     def get_watermark_path(self):
         """

@@ -22,6 +22,7 @@
          @@==================================================================@@
          ||    Name (FreeMarker?)                                            ||
 	     ||    New logo to fit new name                                      ||
+	     ||    Add estimated time remaining label when applying watermarks   ||
          ||    Improve auto scaling                                          ||
          ||    Tooltips for auto-scaling                                     ||
          ||    Allow user to tweak auto scaling parameters                   ||

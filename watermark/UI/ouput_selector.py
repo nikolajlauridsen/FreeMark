@@ -101,10 +101,12 @@ class OutputSelector(Frame):
         out_path = self.output_dir.get().rstrip().lstrip()
 
         if out_path.strip() == "":
-            raise BadOptionError("Missing output location")
+            raise BadOptionError("Missing output location, please click the "
+                                 "\"Choose Folder\" button")
 
         if not os.path.isabs(out_path):
-            raise BadOptionError("Please use an absolute output path")
+            raise BadOptionError("Invalid output location, please click the "
+                                 "\"Choose Folder\" button")
 
         if os.path.isdir(out_path):
             return out_path

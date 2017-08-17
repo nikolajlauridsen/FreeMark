@@ -1,6 +1,8 @@
 from tkinter import *
 from tkinter import filedialog
 
+from watermark.tools.errors import BadOptionError
+
 
 class WatermarkSelector(Frame):
     """
@@ -32,4 +34,8 @@ class WatermarkSelector(Frame):
         Get the path to the currently selected watermark
         :return: path to watermark as string
         """
-        return self.watermark_path.get()
+        path = self.watermark_path.get()
+        if len(path) < 1:
+            raise BadOptionError("Watermark not selected, please click the "
+                                 "\"Choose watermark\" button")
+        return path

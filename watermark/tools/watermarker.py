@@ -21,7 +21,8 @@ class WaterMarker:
         try:
             self.watermark = Image.open(watermark_path)
         except FileNotFoundError:
-            raise FileNotFoundError("Watermark not found.")
+            raise FileNotFoundError("Watermark not found, please click the "
+                                    "\"Choose watermark\" button")
         except OSError:
             raise OSError("Incompatible watermark file type.")
         self.watermark_ratio = self.watermark.size[0] / self.watermark.size[1]

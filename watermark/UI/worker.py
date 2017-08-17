@@ -71,11 +71,14 @@ class Worker(Frame):
         if len(self.file_selector.files) < 1:
             messagebox.showerror('Nothing to watermark',
                                  'Please choose one or more files to watermark.')
+            return
+
         self.fill_que()
         try:
             self.watermarker = WaterMarker(self.option_pane.get_watermark_path())
         except Exception as e:
             self.handle_error(e)
+            return
 
         self.stop_button.config(state=NORMAL)
         self.start_button.config(state=DISABLED)

@@ -93,6 +93,8 @@ class FileSelector(Frame):
                     for _type in types:
                         if _file.endswith(_type) and _file not in self.files:
                             self.files.append(_file)
+                            # Stop when correct format is found.
+                            break
         except FileNotFoundError:
             messagebox.showerror("Error", "Directory not foundx")
             return

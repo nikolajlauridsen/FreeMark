@@ -1,12 +1,12 @@
 from tkinter import *
 from tkinter import filedialog
 
-from watermark.tools.errors import BadOptionError
+from FreeMark.tools.errors import BadOptionError
 
 
 class WatermarkSelector(Frame):
     """
-    GUI element letting the user choose the watermark to be applied
+    GUI element letting the user choose the free_mark to be applied
     """
     def __init__(self, master=None):
         super().__init__(master)
@@ -31,11 +31,11 @@ class WatermarkSelector(Frame):
 
     def get_path(self):
         """
-        Get the path to the currently selected watermark
-        :return: path to watermark as string
+        Get the path to the currently selected free_mark
+        :return: path to free_mark as string
         """
         path = self.watermark_path.get()
         if len(path) < 1:
             raise BadOptionError("Watermark not selected, please click the "
-                                 "\"Choose watermark\" button")
+                                 "\"Choose free_mark\" button")
         return path

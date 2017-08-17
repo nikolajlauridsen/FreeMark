@@ -1,10 +1,10 @@
 from tkinter import *
-from watermark.UI.file_selector import FileSelector
-from watermark.UI.options_pane import OptionsPane
-from watermark.UI.worker import Worker
+from FreeMark.UI.file_selector import FileSelector
+from FreeMark.UI.options_pane import OptionsPane
+from FreeMark.UI.worker import Worker
 
 
-class WaterMarkApp(Frame):
+class FreeMarkApp(Frame):
     """
     Top most frame of the application, represents the 'app'
     brings together all the other major pieces, which in turn brings together 
@@ -19,14 +19,14 @@ class WaterMarkApp(Frame):
     def create_widgets(self):
         """Create the GUI elements"""
         pad_y = 5
-        Label(self.master, text='Image Watermarker', font=16).pack(pady=pad_y)
+        # Label(self.master, text='FreeMark', font=16).pack(pady=pad_y)
 
         # Create listbox for files
         options_frame = Frame(self.master)
         file_selector = FileSelector(options_frame)
         options_pane = OptionsPane(options_frame)
 
-        file_selector.pack(side=LEFT)
+        file_selector.pack(side=LEFT, padx=(2, 5))
         options_pane.pack(side=RIGHT, fill=Y, pady=10)
 
         options_frame.pack()

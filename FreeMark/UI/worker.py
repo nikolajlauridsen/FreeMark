@@ -5,7 +5,7 @@ import threading
 import queue
 
 from ..tools.errors import BadOptionError
-from watermark.tools.watermarker import WaterMarker
+from FreeMark.tools.watermarker import WaterMarker
 
 
 class Worker(Frame):
@@ -69,8 +69,8 @@ class Worker(Frame):
         before spawning workers
         """
         if len(self.file_selector.files) < 1:
-            messagebox.showerror('Nothing to watermark',
-                                 'Please choose one or more files to watermark.')
+            messagebox.showerror('Nothing to free_mark',
+                                 'Please choose one or more files to free_mark.')
             return
 
         self.fill_que()
@@ -86,7 +86,7 @@ class Worker(Frame):
 
     def start_work(self):
         """
-        The baby factory, spawns child workers to apply the watermark to
+        The baby factory, spawns child workers to apply the free_mark to
         the images
         """
         try:
@@ -122,7 +122,7 @@ class Worker(Frame):
     def work(self, outpath, **kwargs):
         """
         Work instructions for the child workers
-        keep grabbing a new image path and then apply watermark with
+        keep grabbing a new image path and then apply free_mark with
         the watermarker, using option pane to create paths
         """
         while self.running:

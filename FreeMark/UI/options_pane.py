@@ -1,8 +1,8 @@
 from tkinter import *
 
-from watermark.UI.ouput_selector import OutputSelector
-from watermark.UI.watermark_selector import WatermarkSelector
-from watermark.UI.watermark_options import WatermarkOptions
+from FreeMark.UI.ouput_selector import OutputSelector
+from FreeMark.UI.watermark_selector import WatermarkSelector
+from FreeMark.UI.watermark_options import WatermarkOptions
 
 
 class OptionsPane(Frame):
@@ -28,8 +28,8 @@ class OptionsPane(Frame):
 
     def get_watermark_path(self):
         """
-        Get path to the currently selected watermark
-        :return: path to watermark as string
+        Get path to the currently selected free_mark
+        :return: path to free_mark as string
         """
         return self.watermark_selector.get_path()
 

@@ -1,9 +1,9 @@
 from PIL import Image
-from watermark.tools.help import clamp
+from FreeMark.tools.help import clamp
 
 
 class WaterMarker:
-    """Object for applying a watermark to images"""
+    """Object for applying a free_mark to images"""
     def __init__(self, watermark_path):
         self.watermark_ratio = None
         self.watermark = None
@@ -22,14 +22,14 @@ class WaterMarker:
             self.watermark = Image.open(watermark_path)
         except FileNotFoundError:
             raise FileNotFoundError("Watermark not found, please click the "
-                                    "\"Choose watermark\" button")
+                                    "\"Choose free_mark\" button")
         except OSError:
-            raise OSError("Incompatible watermark file type.")
+            raise OSError("Incompatible free_mark file type.")
         self.watermark_ratio = self.watermark.size[0] / self.watermark.size[1]
 
     def clean(self):
         """
-        Forget the currently loaded watermark
+        Forget the currently loaded free_mark
         """
         self.watermark_ratio = None
         self.watermark = None
@@ -38,11 +38,11 @@ class WaterMarker:
                         pos="SE", padding=((20, "px"), (5, "px")),
                         opacity=0.5):
         """
-        Apply a watermark to an image
+        Apply a free_mark to an image
         :param input_path: path to image on disk as a string
         :param output_path: save destination (path) as a string
-        :param scale: Bool, scale watermark
-        :param opacity: watermark opacity (a value between 0 and 1)
+        :param scale: Bool, scale free_mark
+        :param opacity: free_mark opacity (a value between 0 and 1)
         :param pos: Assumes first char is y (N/S) and second is x (E/W)
         :param padding: padding in format ((x_pad, unit), (y_pad, unit))
         """
@@ -64,7 +64,7 @@ class WaterMarker:
 
         self.previous_size = image.size
 
-        # Change watermark opacity
+        # Change free_mark opacity
         if self.needs_opacity:
             self.watermark_copy = self.change_opacity(self.watermark_copy,
                                                       opacity)
@@ -104,16 +104,16 @@ class WaterMarker:
 
     def scale_watermark(self, image):
         """
-        Get a scaled copy of the currently loaded watermark,
+        Get a scaled copy of the currently loaded free_mark,
         tries to scale it to from input image's size and orientation
-        :param image: PIL image object that watermark will be applied to
-        :return: scaled copy of currently loaded watermark as PIL image object
+        :param image: PIL image object that free_mark will be applied to
+        :return: scaled copy of currently loaded free_mark as PIL image object
         """
         image_width, image_height = image.size
 
-        # Calculate new watermark size
+        # Calculate new free_mark size
         if image_width > image_height:
-            # Scales the width of the watermark based on the width of the image
+            # Scales the width of the free_mark based on the width of the image
             # while keeping within min/max values
             new_width = int(clamp(image_width * self.landscape_scale_factor,
                                   self.watermark.size[0] * self.min_scale,
@@ -139,9 +139,9 @@ class WaterMarker:
     def get_watermark_position(image, watermark, pos="SE",
                                padding=((20, "px"), (5, "px"))):
         """
-        Calculate position to place the watermark
+        Calculate position to place the free_mark
         :param image: image object of image
-        :param watermark: image object of watermark
+        :param watermark: image object of free_mark
         :param pos: Assumes first char is y (N/S) and second is x (E/W)
         :param padding: padding in format ((x_pad, unit), (y_pad, unit))
         :return: (x, y) coordinates to place the upper left coordinates

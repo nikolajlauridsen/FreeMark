@@ -6,7 +6,7 @@ import os
 
 class FileSelector(Frame):
     """
-    GUI element for selecting images to apply watermark to
+    GUI element for selecting images to apply free_mark to
     """
     def __init__(self, master=None):
         Frame.__init__(self, master)

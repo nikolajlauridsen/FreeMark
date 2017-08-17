@@ -98,7 +98,7 @@ class WatermarkOptions(Frame):
         opacity_frame.pack(anchor=W)
 
         # ----------- Size options -----------
-        Checkbutton(self, text="Auto resize free_mark",
+        Checkbutton(self, text="Auto resize watermark",
                     variable=self.scale_watermark,
                     onvalue=True, offvalue=False).pack(anchor=W, pady=(5, 0))
 

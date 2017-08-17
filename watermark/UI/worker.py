@@ -109,6 +109,7 @@ class Worker(Frame):
         self.image_que = queue.Queue()
         self.watermarker = WaterMarker
         self.progress_var.set(0)
+        self.progress_bar.stop()
         self.file_count.set(0)
         self.start_button.config(state=NORMAL)
         self.stop_button.config(state=DISABLED)

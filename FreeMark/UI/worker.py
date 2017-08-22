@@ -6,6 +6,7 @@ import queue
 
 from ..tools.errors import BadOptionError
 from FreeMark.tools.watermarker import WaterMarker
+from FreeMark.UI.remaining_time import RemainingTime
 
 
 class Worker(Frame):
@@ -26,15 +27,16 @@ class Worker(Frame):
 
         self.progress_var = IntVar()
         self.file_count = IntVar()
+        self.counter_frame = Frame(self)
         self.progress_bar = Progressbar(self, orient="horizontal",
                                         mode="determinate", length=600)
+        self.time_tracker = RemainingTime(self)
 
         self.button_frame = Frame(self)
         self.start_button = Button(self.button_frame, text="Start",
                                    command=self.apply_watermarks, width=10)
         self.stop_button = Button(self.button_frame, text="Stop",
                                   command=self.stop_work, width=10)
-        self.counter_frame = Frame(self)
 
         self.create_widgets()
 
@@ -46,6 +48,7 @@ class Worker(Frame):
         self.counter_frame.pack()
 
         self.progress_bar.pack()
+        self.time_tracker.pack()
 
         self.stop_button.config(state=DISABLED)
         self.start_button.pack(side=LEFT, padx=15)
@@ -60,6 +63,7 @@ class Worker(Frame):
         files = self.file_selector.get_file_paths()
         self.file_count.set(len(files))
         self.progress_bar.configure(maximum=len(files))
+        self.time_tracker.set_max(len(files))
         for file in files:
             self.image_que.put(file)
 
@@ -103,6 +107,7 @@ class Worker(Frame):
         self.option_pane.output_selector.lock()
         thread = threading.Thread(target=self.work,
                                   kwargs=kwargs, args=(output, ))
+        self.time_tracker.start()
         thread.start()
 
     def reset(self):
@@ -110,6 +115,7 @@ class Worker(Frame):
         self.watermarker = WaterMarker
         self.progress_var.set(0)
         self.progress_bar.stop()
+        self.time_tracker.stop()
         self.file_count.set(0)
         self.start_button.config(state=NORMAL)
         self.stop_button.config(state=DISABLED)
@@ -147,6 +153,7 @@ class Worker(Frame):
             except Exception as e:
                 print("Error!\n", type(e), "\n", e)
             self.progress_bar.step(amount=1)
+            self.time_tracker.step()
             self.progress_var.set(self.progress_var.get()+1)
 
         self.reset()

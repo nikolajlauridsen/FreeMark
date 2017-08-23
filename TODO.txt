@@ -1,4 +1,4 @@
-                              @@======================@@
+﻿                              @@======================@@
                               ||     New features     ||
                               ||   ready for release  ||
                               @@======================@@
@@ -13,6 +13,7 @@
          ||    Replaced ugly warning label with dialog boxes                 ||
          ||    Output options now locks when the program is working          ||
          ||    Fixed bug where opacity would not be applied correctly        ||
+         ||    Add estimated time remaining label when applying watermarks   ||
          @@==================================================================@@
 
 
@@ -20,9 +21,8 @@
                               ||     TODO: Maybe?     ||
                               @@======================@@
          @@==================================================================@@
-         ||    Name (FreeMarker?)                                            ||
-	     ||    New logo to fit new name                                      ||
-	     ||    Add estimated time remaining label when applying watermarks   ||
+         ||    New logo to fit new name                                      ||
+	 ||    Make est time display pretty                                  ||
          ||    Improve auto scaling                                          ||
          ||    Tooltips for auto-scaling                                     ||
          ||    Allow user to tweak auto scaling parameters                   ||

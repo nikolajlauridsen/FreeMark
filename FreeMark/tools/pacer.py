@@ -15,7 +15,6 @@ class Pacer:
     def start(self, start=None):
         """
         Start the pacer
-        :param _max: Amount of steps to be taken
         :param start: Optional, start the pacer with an amount of steps taken,
                       used for a continued process
                       (WARNING! Not yet implemented!)

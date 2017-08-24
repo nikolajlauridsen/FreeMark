@@ -67,7 +67,8 @@ class Pacer:
             try:
                 remaining = (self.max - self.progress) / self.pace
             except ZeroDivisionError:
-                remaining = 9999
+                # It's a shot in the dark, but it's much prettier than 999
+                remaining = self.max * 2
 
             return remaining
 

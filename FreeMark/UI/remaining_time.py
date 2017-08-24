@@ -59,6 +59,7 @@ class RemainingTime(Frame):
         while self.pacer.running:
             self.update()
             time.sleep(0.5)
+        self.remaining_time.set(0)
 
     def stop(self):
         """

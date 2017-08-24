@@ -2,10 +2,10 @@ import time
 
 
 class Pacer:
-    """
-    Tracks the pace of a 'process' and calculates estimated time remaining
-    """
     def __init__(self):
+        """
+        Tracks the pace of a 'process' and calculates estimated time remaining
+        """
         self.start_time = None
         self.max = 0       # Maximum elements to be processed
         self.progress = 0  # Amount of elements processed
@@ -28,6 +28,10 @@ class Pacer:
         self.running = True
 
     def set_max(self, _max):
+        """
+        Set the amount of steps in the process to be timed
+        :param _max: int amount of steps.
+        """
         assert _max > 1, "Max is less than zero (you cannot expect < 1 step)"
         self.max = _max
 

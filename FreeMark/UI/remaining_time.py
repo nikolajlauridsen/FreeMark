@@ -32,7 +32,7 @@ class RemainingTime(Frame):
 
     def start(self):
         """
-        Show the element and start the timer
+        Show the element and start the timer, start updating label.
         """
         self.pacer.start()
         self.remaining_time.set(0)  # Set it to 0 till we have the first step

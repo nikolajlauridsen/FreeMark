@@ -82,6 +82,12 @@ class WaterMarker:
 
     @staticmethod
     def change_opacity(image, opacity):
+        """
+        Change opacity of an image.
+        :param image: PIL image object.
+        :param opacity: Opacity as a factor (number between 0.0 and 1.0)
+        :return: Image with new opacity
+        """
         assert 0.0 <= opacity <= 1.0, "opacity must be between 0 and 1"
         image = image.convert("RGBA")
         img_data = image.load()

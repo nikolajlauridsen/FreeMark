@@ -74,7 +74,8 @@ class Worker(Frame):
         """
         if len(self.file_selector.files) < 1:
             messagebox.showerror('Nothing to free_mark',
-                                 'Please choose one or more files to free_mark.')
+                                 'Please choose one or more files '
+                                 'to watermark.')
             return
 
         self.fill_que()
@@ -90,8 +91,9 @@ class Worker(Frame):
 
     def start_work(self):
         """
-        The baby factory, spawns child workers to apply the free_mark to
-        the images
+        The baby factory, spawns worker thread to apply the watermark to
+        the images.
+        Also locks the buttons and output selector
         """
         try:
             kwargs = {"pos": self.option_pane.get_watermark_pos(),
@@ -111,6 +113,9 @@ class Worker(Frame):
         thread.start()
 
     def reset(self):
+        """
+        Reset the worker, emptying queue, resetting vars and buttons and stuff.
+        """
         self.image_que = queue.Queue()
         self.watermarker = WaterMarker
         self.progress_var.set(0)
@@ -122,6 +127,11 @@ class Worker(Frame):
         self.option_pane.output_selector.unlock()
 
     def handle_error(self, e):
+        """
+        Handle an error, showing the callback to the user.
+        Is meant to be primarily used with BadOption error with a custom text.
+        :param e: Error object.
+        """
         self.reset()
         messagebox.showerror("Error", str(e))
 
@@ -129,7 +139,8 @@ class Worker(Frame):
         """
         Work instructions for the child workers
         keep grabbing a new image path and then apply free_mark with
-        the watermarker, using option pane to create paths
+        the watermarker, using option pane to create paths.
+        Controls progress bar and timer_tracker as well
         """
         while self.running:
             try:

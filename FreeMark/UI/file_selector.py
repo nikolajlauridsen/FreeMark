@@ -96,7 +96,7 @@ class FileSelector(Frame):
                             # Stop when correct format is found.
                             break
         except FileNotFoundError:
-            messagebox.showerror("Error", "Directory not foundx")
+            messagebox.showerror("Error", "Directory not found")
             return
         self.refresh_list()
 

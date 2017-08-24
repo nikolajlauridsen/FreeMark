@@ -15,9 +15,10 @@ class RemainingTime(Frame):
 
         # Required GUI elements
         self.remaining_time = IntVar()
-        self.description = Label(self, text="Est. time remaining:")
+        self.description = Label(self, text="Time remaining:")
         self.time_label = Label(self, textvariable=self.remaining_time)
-        self.unit_label = Label(self, text="Seconds")
+        self.unit_label = Label(self, text="s")
+        self.show()
 
         self.pacer = Pacer()
 
@@ -31,16 +32,12 @@ class RemainingTime(Frame):
         self.pacer.start()
         self.remaining_time.set(0)  # Set it to 0 till we have the first step
         threading.Thread(target=self._updater).start()
-        self.show()
 
     def step(self):
         """
         Take a step
         """
         self.pacer.step()
-        if not self.pacer.running:
-            # We're done, hide in shame.
-            self.hide()
 
     def update(self):
         self.remaining_time.set(round(self.pacer.get_estimated_remaining()))
@@ -53,7 +50,6 @@ class RemainingTime(Frame):
     def stop(self):
         self.pacer.reset()
         self.remaining_time.set(0)
-        self.hide()
 
     def hide(self):
         for child in self.winfo_children():

@@ -30,7 +30,7 @@ class Worker(Frame):
         self.counter_frame = Frame(self)
         self.progress_bar = Progressbar(self, orient="horizontal",
                                         mode="determinate", length=600)
-        self.time_tracker = RemainingTime(self)
+        self.time_tracker = RemainingTime(self.counter_frame)
 
         self.button_frame = Frame(self)
         self.start_button = Button(self.button_frame, text="Start",
@@ -42,13 +42,13 @@ class Worker(Frame):
 
     def create_widgets(self):
         """Create GUI"""
+        self.counter_frame.pack()
+        self.time_tracker.pack(side=LEFT, padx=(0, 10))
         Label(self.counter_frame, textvariable=self.progress_var).pack(side=LEFT)
         Label(self.counter_frame, text="/").pack(side=LEFT)
         Label(self.counter_frame, textvariable=self.file_count).pack(side=LEFT)
-        self.counter_frame.pack()
 
         self.progress_bar.pack()
-        self.time_tracker.pack()
 
         self.stop_button.config(state=DISABLED)
         self.start_button.pack(side=LEFT, padx=15)

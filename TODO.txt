@@ -22,7 +22,9 @@
                               @@======================@@
          @@==================================================================@@
          ||    New logo to fit new name                                      ||
-	 ||    Make est time display pretty                                  ||
+         ||    Write a proper README file                                    ||
+         ||    Make est time display pretty                                  ||
+         ||    Look into multi-processing for large batches                  ||
          ||    Improve auto scaling                                          ||
          ||    Tooltips for auto-scaling                                     ||
          ||    Allow user to tweak auto scaling parameters                   ||

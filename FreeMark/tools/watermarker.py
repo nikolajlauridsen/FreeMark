@@ -22,9 +22,9 @@ class WaterMarker:
             self.watermark = Image.open(watermark_path)
         except FileNotFoundError:
             raise FileNotFoundError("Watermark not found, please click the "
-                                    "\"Choose free_mark\" button")
+                                    "\"Choose watermark\" button")
         except OSError:
-            raise OSError("Incompatible free_mark file type.")
+            raise OSError("Watermark image is of incompatible type.")
         self.watermark_ratio = self.watermark.size[0] / self.watermark.size[1]
 
     def clean(self):

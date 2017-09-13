@@ -73,9 +73,9 @@ class Worker(Frame):
         before spawning workers
         """
         if len(self.file_selector.files) < 1:
-            messagebox.showerror('Nothing to free_mark',
+            messagebox.showerror('Nothing to mark',
                                  'Please choose one or more files '
-                                 'to watermark.')
+                                 'to mark.')
             return
 
         self.fill_que()

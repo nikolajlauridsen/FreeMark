@@ -37,5 +37,5 @@ class WatermarkSelector(Frame):
         path = self.watermark_path.get()
         if len(path) < 1:
             raise BadOptionError("Watermark not selected, please click the "
-                                 "\"Choose free_mark\" button")
+                                 "\"Choose watermark\" button")
         return path

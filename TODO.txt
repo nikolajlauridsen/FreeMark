@@ -21,6 +21,9 @@
                               ||     TODO: Maybe?     ||
                               @@======================@@
          @@==================================================================@@
+         ||    Warn user about overwriting files                             ||
+         ||    Clear folder entry when clearing files                        ||
+         ||    Save watermark location                                       ||
          ||    New logo to fit new name                                      ||
          ||    Write a proper README file                                    ||
          ||    Make est time display pretty                                  ||

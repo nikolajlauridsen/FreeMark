@@ -55,7 +55,7 @@ class FileSelector(Frame):
 
     def remove_item(self):
         """
-        Delete selected item from the list view 
+        Delete selected item from the list view
         and copy files list from view
         """
         self.files_view.delete(ANCHOR)
@@ -82,7 +82,7 @@ class FileSelector(Frame):
     def clear_files(self):
         self.files = []
         self.refresh_list()
-        self.base_dir.set(' ')
+        self.base_dir.set('')
 
     def refresh_files(self):
         """Update files list"""

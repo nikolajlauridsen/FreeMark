@@ -82,6 +82,7 @@ class FileSelector(Frame):
     def clear_files(self):
         self.files = []
         self.refresh_list()
+        self.base_dir.set(' ')
 
     def refresh_files(self):
         """Update files list"""

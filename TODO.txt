@@ -14,6 +14,7 @@
          ||    Output options now locks when the program is working          ||
          ||    Fixed bug where opacity would not be applied correctly        ||
          ||    Add estimated time remaining label when applying watermarks   ||
+         ||    Clear folder entry when clearing files                        ||
          @@==================================================================@@
 
 
@@ -22,7 +23,6 @@
                               @@======================@@
          @@==================================================================@@
          ||    Warn user about overwriting files                             ||
-         ||    Clear folder entry when clearing files                        ||
          ||    Save watermark location                                       ||
          ||    New logo to fit new name                                      ||
          ||    Write a proper README file                                    ||

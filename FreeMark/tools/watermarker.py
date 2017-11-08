@@ -96,7 +96,6 @@ class WaterMarker:
         width, height = image.size
         for y in range(height):
             for x in range(width):
-                #  TODO: Is this not supposed to be the other way around?
                 if img_data[x, y][3] > 5:
                     new_data.append((img_data[x, y][0],
                                      img_data[x, y][1],

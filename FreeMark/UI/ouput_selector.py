@@ -12,7 +12,9 @@ SUFFIX = 2
 
 
 class OutputSelector(Frame):
-    """Class for selecting output destination and generating paths"""
+    """
+    Class for selecting output destination and generating paths
+    """
     def __init__(self, master=None):
         super().__init__(master)
 
@@ -29,7 +31,9 @@ class OutputSelector(Frame):
         self.create_widgets()
 
     def create_widgets(self):
-        """Create and pack the TK widgets"""
+        """
+        Create and pack the TK widgets
+        """
         Label(self, text="Output options", font=14).pack(anchor=W)
 
         Entry(self.entry_frame, width=50,
@@ -97,7 +101,9 @@ class OutputSelector(Frame):
         self.output_dir.set(filedialog.askdirectory())
 
     def get_dir(self):
-        """Returns the currently selected dir"""
+        """
+        Returns the currently selected dir
+        """
         out_path = self.output_dir.get().rstrip().lstrip()
 
         if out_path.strip() == "":

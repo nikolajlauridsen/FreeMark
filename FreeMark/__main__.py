@@ -3,7 +3,9 @@ from FreeMark.FreeMark_app import FreeMarkApp
 
 
 def main():
-    """Main method, starts TK and loads Watermark"""
+    """
+    Main method, starts TK and loads Watermark
+    """
     root = Tk()
     root.title('FreeMark')
     root.iconbitmap('logo.ico')

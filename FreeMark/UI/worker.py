@@ -3,7 +3,6 @@ from tkinter.ttk import Progressbar
 from tkinter import messagebox
 import threading
 import queue
-
 from ..tools.errors import BadOptionError
 from FreeMark.tools.watermarker import WaterMarker
 from FreeMark.UI.remaining_time import RemainingTime

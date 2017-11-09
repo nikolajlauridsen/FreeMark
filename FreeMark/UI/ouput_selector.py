@@ -51,12 +51,12 @@ class OutputSelector(Frame):
               textvariable=self.fix).pack(side=LEFT, padx=5)
         # Me? I know who I am
         # I'm a frame playing a frame, disguised as another frame!
+        Radiobutton(self.radio_frame, text="Postfix",
+                    variable=self.fix_position, value=SUFFIX).pack(side=RIGHT)
+        Radiobutton(self.radio_frame, text="Prefix",
+                    variable=self.fix_position, value=PRE).pack(side=RIGHT)
         Radiobutton(self.radio_frame, text="None", variable=self.fix_position,
                     value=NONE).pack(side=RIGHT)
-        Radiobutton(self.radio_frame, text="Prefix", variable=self.fix_position,
-                    value=PRE).pack(side=RIGHT)
-        Radiobutton(self.radio_frame, text="Suffix", variable=self.fix_position,
-                    value=SUFFIX).pack(side=RIGHT)
         self.radio_frame.pack(anchor=CENTER)
         self.fix_frame.pack(fill=X)
 

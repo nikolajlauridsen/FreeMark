@@ -1,10 +1,13 @@
 from PIL import Image
+import os
 from FreeMark.tools.help import clamp
 
 
 class WaterMarker:
     """Object for applying a free_mark to images"""
-    def __init__(self, watermark_path):
+    def __init__(self, watermark_path, overwrite=False):
+        self.overwrite = overwrite
+
         self.watermark_ratio = None
         self.watermark = None
         self.watermark_copy = None
@@ -46,6 +49,10 @@ class WaterMarker:
         :param pos: Assumes first char is y (N/S) and second is x (E/W)
         :param padding: padding in format ((x_pad, unit), (y_pad, unit))
         """
+        # Don't overwrite existing files unless asked to
+        if os.path.isfile(output_path) and not self.overwrite:
+            return
+
         image = Image.open(input_path)
 
         if scale and \

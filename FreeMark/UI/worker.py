@@ -3,6 +3,8 @@ from tkinter.ttk import Progressbar
 from tkinter import messagebox
 import threading
 import queue
+import os
+
 from ..tools.errors import BadOptionError
 from FreeMark.tools.watermarker import WaterMarker
 from FreeMark.UI.remaining_time import RemainingTime
@@ -66,6 +68,18 @@ class Worker(Frame):
         for file in files:
             self.image_que.put(file)
 
+    def is_existing_files(self):
+        """
+        Check if there's existing files which will be overwritten by the
+        watermarker
+        :return: True/False
+        """
+        out = self.option_pane.get_output_path()
+        for _file in self.file_selector.get_file_paths():
+            if os.path.isfile(self.option_pane.create_output_path(_file, out)):
+                return True
+        return False
+
     def apply_watermarks(self):
         """
         Fill the que, then prepare the watermarker
@@ -77,15 +91,25 @@ class Worker(Frame):
                                  'to mark.')
             return
 
-        self.fill_que()
+        if self.is_existing_files():
+            print('OVERWRITING FILES!!!')
+            kwargs = {"title": "Overwrite files?",
+                      "message": "Files already exists, want to overwrite?"}
+            overwrite = messagebox.askyesno(**kwargs)
+        else:
+            # Shouldn't matter since there's no files.
+            overwrite = False
+
         try:
-            self.watermarker = WaterMarker(self.option_pane.get_watermark_path())
+            self.watermarker = WaterMarker(self.option_pane.get_watermark_path(),
+                                           overwrite=overwrite)
         except Exception as e:
             self.handle_error(e)
             return
 
         self.stop_button.config(state=NORMAL)
         self.start_button.config(state=DISABLED)
+        self.fill_que()
         self.start_work()
 
     def start_work(self):

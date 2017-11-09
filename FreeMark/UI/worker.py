@@ -92,7 +92,6 @@ class Worker(Frame):
             return
 
         if self.is_existing_files():
-            print('OVERWRITING FILES!!!')
             kwargs = {"title": "Overwrite files?",
                       "message": "Files already exists, want to overwrite?"}
             overwrite = messagebox.askyesno(**kwargs)

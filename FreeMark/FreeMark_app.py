@@ -1,4 +1,5 @@
 from tkinter import *
+
 from FreeMark.UI.file_selector import FileSelector
 from FreeMark.UI.options_pane import OptionsPane
 from FreeMark.UI.worker import Worker
@@ -18,7 +19,6 @@ class FreeMarkApp(Frame):
 
     def create_widgets(self):
         """Create the GUI elements"""
-        pad_y = 5
         # Label(self.master, text='FreeMark', font=16).pack(pady=pad_y)
 
         # Create listbox for files

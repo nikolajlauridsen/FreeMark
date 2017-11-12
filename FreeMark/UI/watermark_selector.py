@@ -2,6 +2,7 @@ from tkinter import *
 from tkinter import filedialog
 
 from FreeMark.tools.errors import BadOptionError
+from FreeMark.tools.config import Config
 
 
 class WatermarkSelector(Frame):
@@ -11,9 +12,10 @@ class WatermarkSelector(Frame):
     def __init__(self, master=None):
         super().__init__(master)
         self.master = master
+        self.config = Config('options.ini')
 
         self.watermark_path = StringVar()
-        self.watermark_path.set("Choose watermark")
+        self.watermark_path.set(self.config.get_config()["watermark_location"])
 
         self.create_widgets()
 
@@ -27,7 +29,14 @@ class WatermarkSelector(Frame):
 
     def set_path(self):
         """Prompt the user, asking the to choose a file"""
-        self.watermark_path.set(filedialog.askopenfilename())
+        path = filedialog.askopenfilename()
+        if len(path) == 0:
+            # Don't do anything if the user chose nothing
+            return
+
+        self.watermark_path.set(path)
+        self.config.get_config()["watermark_location"] = path
+        self.config.save_config()
 
     def get_path(self):
         """

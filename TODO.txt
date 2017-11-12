@@ -17,6 +17,7 @@
          ||    Clear folder entry when clearing files                        ||
          ||    Warn user before overwriting files                            ||
          ||    Allow empty number entry boxes                                ||
+         ||    Save watermark location                                       ||
          @@==================================================================@@
 
 
@@ -24,7 +25,6 @@
                               ||     TODO: Maybe?     ||
                               @@======================@@
          @@==================================================================@@
-         ||    Save watermark location                                       ||
          ||    New logo to fit new name                                      ||
          ||    Write a proper README file                                    ||
          ||    Make est time display pretty                                  ||

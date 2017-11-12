@@ -107,6 +107,9 @@ class WatermarkOptions(Frame):
         try:
             int(number)
         except ValueError:
+            if len(number.strip()) == 0:
+                # Allow the field to be empty
+                return True
             return False
         else:
             return True

@@ -16,6 +16,7 @@
          ||    Add estimated time remaining label when applying watermarks   ||
          ||    Clear folder entry when clearing files                        ||
          ||    Warn user before overwriting files                            ||
+         ||    Allow empty number entry boxes                                ||
          @@==================================================================@@
 
 
@@ -23,7 +24,6 @@
                               ||     TODO: Maybe?     ||
                               @@======================@@
          @@==================================================================@@
-         ||    Improve validate_int in watermark_options                     ||
          ||    Save watermark location                                       ||
          ||    New logo to fit new name                                      ||
          ||    Write a proper README file                                    ||

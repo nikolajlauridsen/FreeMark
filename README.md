@@ -1,8 +1,11 @@
 # FreeMark
 
-![Freemark](https://github.com/nikolajlauridsen/FreeMark/blob/master/screenshot.PNG?raw=true)
-
-Easy way to watermark multiple images, made to be super easy and hassle free.
+<p align="center">
+  <img src="https://github.com/nikolajlauridsen/FreeMark/blob/master/screenshot.PNG?raw=true">
+  <br><br>
+  Easy way to watermark multiple images, made to be super easy and hassle free.
+  <br>
+</p>
 
 ## How to
 Simply do the three necessary steps: 

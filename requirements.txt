@@ -1,2 +1,2 @@
 olefile==0.44
-Pillow==10.3.0
+Pillow==12.2.0
